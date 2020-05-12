@@ -6,9 +6,7 @@
 .landing-title-wrapper {
   padding-top: 1rem;
 }
-h1 {
-  font-family: title-font;
-}
+
 @font-face {
   font-family: title-font;
   src: url(1579-fink-heavy-1361523207.ttf);
