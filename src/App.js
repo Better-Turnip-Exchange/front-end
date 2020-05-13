@@ -4,14 +4,18 @@ import Routes from './Routes';
 import './App.css';
 
 function App() {
-  const history = useHistory()
   const [authenticated, setAuthenticated] = useState(false)
-  const [userName, setUserName] = useState(null);
+  const [userName, setUserName] = useState('');
   const [token, setToken] = useState('')
   useEffect(() => {
     onLoad();
   }, []);
-
+  const hooks = { authenticated, setAuthenticated, userName, setUserName, token, setToken }
+  const logOut = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
+    setAuthenticated(false);
+  }
   async function onLoad() {
     let userToken = localStorage.getItem('token') || null;
     let user = localStorage.getItem('userName') || null;
@@ -23,12 +27,15 @@ function App() {
   }
 
   return (
-    <div className="container-fluid app">
+    <>
       <nav class='navbar bg-light justify-content-between'>
-        <a class='navbar-brand'> The Better Turnip Exchange</a>
+        <span class='navbar-brand mb-0 h1' href='/'> The Better Turnip Exchange</span>
+        {authenticated && <button class='btn btn-light' onClick={logOut}>Logout</button>}
       </nav>
-      <Routes appProps={{ authenticated, userName, token }} />
-    </div>
+      <div className="container-fluid app">
+        <Routes appProps={{ ...hooks }} />
+      </div>
+    </>
   );
 }
 

@@ -4,14 +4,12 @@ import keys from '../config';
 
 const Login = props => {
     const respond = (res) => {
-        console.log(res);
-        
         localStorage.setItem('userName', res.name)
         localStorage.setItem('token', res.accessToken)
-       
-    }
-    const handleClick = () => {
-        console.log('Clicked')
+        props.setAuthenticated(true)
+        props.setUserName(res.name)
+        props.history.push('/');
+
     }
     return (
         <div className="login">
@@ -19,7 +17,6 @@ const Login = props => {
                 appId={keys.FACEBOOK_KEY}
                 callback={respond}
                 fields='name,email,picture'
-                onClick={handleClick}
             />
 
         </div>
