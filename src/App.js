@@ -10,7 +10,6 @@ function App() {
   const [token, setToken] = useState('')
   useEffect(() => {
     onLoad();
-
   }, []);
 
   async function onLoad() {

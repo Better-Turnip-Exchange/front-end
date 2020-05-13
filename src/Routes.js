@@ -10,7 +10,7 @@ export default function Routes({ appProps }) {
     return (
         <Switch>
             <AppliedRoute path='/' exact component={Home} appProps={appProps} />
-            <AppliedRoute path='/islands' exact component={Islands} appProps={appProps} />
+            <AuthenticatedRoute path='/islands' exact component={Islands} appProps={appProps} />
         </Switch >
 
     )
