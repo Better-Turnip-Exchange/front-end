@@ -4,7 +4,8 @@ import Routes from './Routes';
 import './App.css';
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(true)
+  const [authenticated, setAuthenticated] = useState(false)
+  const [userName, setUserName] = useState(null);
   const [token, setToken] = useState('')
   useEffect(() => {
     onLoad();
@@ -13,16 +14,17 @@ function App() {
 
   async function onLoad() {
     let userToken = localStorage.getItem('token') || null;
-    if (userToken) {
-      console.log('found a token:' + userToken)
+    let user = localStorage.getItem('userName') || null;
+    if (userToken && user) {
       setAuthenticated(true)
       setToken(userToken)
+      setUserName(user)
     }
   }
 
   return (
     <div className="container-fluid app">
-      <Routes appProps={{ authenticated }} />
+      <Routes appProps={{ authenticated, userName, token }} />
     </div>
   );
 }

@@ -3,15 +3,16 @@ import Login from './Login';
 
 const Home = (props) => {
     const renderLogin = () => {
-        console.log(props.authenticated)
         return (
             < Login />
         )
     }
-    const renderIslands = props => {
-        console.log('User is authenticated.')
+    const renderIslands = () => {
         return (
-            <h1> Your Islands</h1>
+            <div>
+                <h2> Welcome, {props.userName.split(' ')[0]}! </h2>
+                <a role='button' type='button' class='btn btn-secondary' href='/islands'> View your islands</a>
+            </div>
         )
     }
     return (
