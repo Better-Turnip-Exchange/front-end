@@ -5,6 +5,7 @@ import keys from '../config';
 const Login = props => {
     const respond = (res) => {
         console.log(res);
+        
         localStorage.setItem('userName', res.name)
         localStorage.setItem('token', res.accessToken)
        

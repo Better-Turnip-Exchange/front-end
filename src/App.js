@@ -24,6 +24,9 @@ function App() {
 
   return (
     <div className="container-fluid app">
+      <nav class='navbar bg-light justify-content-between'>
+        <a class='navbar-brand'> The Better Turnip Exchange</a>
+      </nav>
       <Routes appProps={{ authenticated, userName, token }} />
     </div>
   );
