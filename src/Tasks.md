@@ -4,14 +4,14 @@
 
 ### To-Do
 
-- Implement filters selections (from turnip.exchange) and store in props : Select page
-- Facebook auth check when authenticating : Login
+- (DW) Implement filters selections (from turnip.exchange) and store in props : Select page
 
 ### In-Progress
 
-- (DW) Set up select page
-
 ### Completed
+
+- (DW) Set up select page
+- (KC) Set up fonts
 
 ## Backlog
 
