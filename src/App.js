@@ -4,6 +4,7 @@ import Routes from './Routes';
 import './App.css';
 
 function App() {
+  const history = useHistory()
   const [authenticated, setAuthenticated] = useState(false)
   const [userName, setUserName] = useState(null);
   const [token, setToken] = useState('')

@@ -1,8 +1,16 @@
 .app {
   text-align: center;
-  background-color: #dcdcc4;
   min-height: 100vh;
 }
 .landing-title-wrapper {
   padding-top: 1rem;
+}
+h1,
+h2,
+h3 {
+  font-family: "fink";
+}
+@font-face {
+  font-family: "fink";
+  src: url("./assets/FinkHeavy.ttf") format("truetype");
 }

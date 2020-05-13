@@ -7,6 +7,7 @@ const Login = props => {
         console.log(res);
         localStorage.setItem('userName', res.name)
         localStorage.setItem('token', res.accessToken)
+       
     }
     const handleClick = () => {
         console.log('Clicked')
