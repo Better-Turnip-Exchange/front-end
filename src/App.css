@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Source+Sans+Pro&display=swap');
+
 .app {
   text-align: center;
   min-height: 100vh;
@@ -5,12 +7,11 @@
 .landing-title-wrapper {
   padding-top: 1rem;
 }
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+}
 h1,
 h2,
 h3 {
-  font-family: "fink";
-}
-@font-face {
-  font-family: "fink";
-  src: url("./assets/FinkHeavy.ttf") format("truetype");
+  font-family: 'Arvo', serif;
 }
