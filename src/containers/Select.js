@@ -1,12 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 
 const Select = props => {
+    const [villagers, setVillagers] = useState('');
+    const [categories, setCategories] = useState('');
+    const [fees, setFees] = useState('');
+    const [userFilters, setUserFilters] = useState({});
+    const bundleFilters = () => {
+        
+    }
+
     return (
         <div class='container mt-4'>
             <h3> Welcome, {props.userName.split(' ')[0]}! </h3>
             <div class='container mt-8'>
-                <div class="input-group mb-3">
+
+                <form class="input-group mb-3" onSubmit={bundleFilters}>
                     <select class="custom-select" id="filter">
                         <option selected>Villagers...</option>
                         <option value="celeste">Celeste</option>
@@ -27,9 +36,9 @@ const Select = props => {
                         <option value="dont-care">Don't Care</option>
                     </select>
                     <div class="input-group-append">
-                        <label class="input-group-text" for="filter">Find</label>
+                        <button class="input-group-text" for="filter">Find</button>
                     </div>
-                </div>
+                </form>
                 <div class='card-deck text-center'>
                     <div class='card box-shadow'>
                         <h3 class='card-header'>
