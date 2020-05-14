@@ -1,0 +1,32 @@
+.price-input {
+
+}
+.welcome-message {
+  margin-bottom: 2rem;
+}
+.input-group {
+  display: inline-block;
+  justify-content: center;
+  vertical-align: bottom;
+}
+.keywords-header {
+  line-height: normal;
+  justify-content: center;
+}
+.keyword-label {
+  font-size: 18px;
+  padding: 0.4em 0.4em 0.4em;
+  margin: 0 0.2em 0.2em 0;
+  border-radius: 0.25;
+}
+.keyword-label a {
+  color: #bbb;
+  cursor: pointer;
+  opacity: 0.6;
+  margin-left: 0.5rem;
+}
+.keyword-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
