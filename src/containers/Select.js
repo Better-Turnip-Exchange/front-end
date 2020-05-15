@@ -1,19 +1,32 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios';
 
 import './Select.css';
 
-
 const Select = props => {
+
     const [villagers, setVillagers] = useState('');
     const [categories, setCategories] = useState('');
     const [fees, setFees] = useState('');
+    const [name, setName] = useState(props.userName)
     const [keyword, setKeyword] = useState('');
-    const [keywords, setKeywords] = useState(['tip', 'gold', 'miles'])
+    const [keywords, setKeywords] = useState(['tip', 'gold', 'miles']);
     const [price, setPrice] = useState('500');
     const [userFilters, setUserFilters] = useState({});
-    const bundleFilters = () => {
+    const sendFilters = () => {
+        axios.post('villager/', {
+            villager_id: name,
+            keywords: keywords,
+            price_threshold: price
+        })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err)
+            });
 
     }
     const handlePrice = (e) => {
@@ -41,6 +54,7 @@ const Select = props => {
         setKeyword(e.target.value);
     }
 
+
     return (
         <div class='container mt-4 items-center'>
             <h3 class='welcome-message'> Welcome, {props.userName.split(' ')[0]}! </h3>
@@ -66,6 +80,10 @@ const Select = props => {
                 <div class="input-group price-input mb-2">
                     <h1>How Many Bells?</h1>
                     <input type="text" name='price-input' class=" price-input" value={price} min='0' max="999" onChange={handlePrice}></input>
+                </div>
+
+                <div class='button-wrapper mb-2'>
+                    <button type='button' class='btn btn-warning' onClick={sendFilters}> Update </button>
                 </div>
 
                 <div class='card-deck text-center'>
