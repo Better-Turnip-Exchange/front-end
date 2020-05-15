@@ -21,9 +21,14 @@ const Select = ({ userName }) => {
   const [userInfo, setUserInfo] = useState({});
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    getUser();
+  }, [name]);
+
   const handlePrice = e => {
     setPrice(e.target.value);
   };
+
   const onToggleKeyword = e => {
     e.preventDefault();
     toggleKeyword(e.currentTarget.id);
@@ -31,10 +36,10 @@ const Select = ({ userName }) => {
 
   const toggleKeyword = (key, bool = !keywords[key]) => {
     console.log('Toggling keyword', key, 'to', bool);
-    setKeywords({
-      ...keywords,
+    setKeywords(prevState => ({
+      ...prevState,
       [key]: bool,
-    });
+    }));
   };
 
   const getSelectedKeyWords = keywords => {
@@ -62,6 +67,7 @@ const Select = ({ userName }) => {
         console.log(err);
       });
   };
+
   const getFilters = () => {
     axios
       .get(`villager/${name}/public`)
@@ -76,9 +82,8 @@ const Select = ({ userName }) => {
   };
 
   const adjustKeywords = userKeywords => {
-    Object.keys(keywords).map(key => (keywords[key] = false));
-    userKeywords.forEach((word, i) => {
-      toggleKeyword(word, true);
+    Object.keys(keywords).forEach((word, i) => {
+      toggleKeyword(word, userKeywords.includes(word));
     });
   };
 
@@ -96,10 +101,6 @@ const Select = ({ userName }) => {
       console.log('err', error);
     }
   };
-
-  useEffect(() => {
-    getUser();
-  }, [name]);
 
   return (
     <div class='container mt-4 items-center'>
