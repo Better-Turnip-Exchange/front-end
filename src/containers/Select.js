@@ -7,25 +7,29 @@ import './Select.css';
 import keys from '../config';
 
 const Select = ({ userName }) => {
-  const initialKeywords = {
-    tip: false,
-    gold: false,
-    miles: false,
-    entry: true,
-    nmts: false,
+  const initialState = {
+    name: userName,
+    keywords: {
+      tip: false,
+      gold: false,
+      miles: false,
+      entry: true,
+      nmts: false,
+    },
+    price: 500,
   };
 
-  const [name, setName] = useState(userName);
-  const [keywords, setKeywords] = useState(initialKeywords);
-  const [price, setPrice] = useState('500');
+  const [name, setName] = useState(initialState.name);
+  const [keywords, setKeywords] = useState(initialState.keywords);
+  const [price, setPrice] = useState(initialState.price);
   const [userInfo, setUserInfo] = useState({});
-  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     getUser();
-  }, [name]);
+  }, []);
 
-  const handlePrice = e => {
+  /* Event Calls */
+  const onHandlePrice = e => {
     setPrice(e.target.value);
   };
 
@@ -34,12 +38,19 @@ const Select = ({ userName }) => {
     toggleKeyword(e.currentTarget.id);
   };
 
+  /* Keywords */
   const toggleKeyword = (key, bool = !keywords[key]) => {
     console.log('Toggling keyword', key, 'to', bool);
     setKeywords(prevState => ({
       ...prevState,
       [key]: bool,
     }));
+  };
+
+  const adjustKeywords = userKeywords => {
+    Object.keys(keywords).forEach((word, i) => {
+      toggleKeyword(word, userKeywords.includes(word));
+    });
   };
 
   const getSelectedKeyWords = keywords => {
@@ -52,39 +63,20 @@ const Select = ({ userName }) => {
     return selected;
   };
 
-  const sendFilters = () => {
-    let words = getSelectedKeyWords(keywords);
-    axios
-      .post('villager/', {
-        villager_id: name,
-        keywords: words,
-        price_threshold: price,
-      })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+  /* Server calls */
+  const putUser = async () => {
+    const body = {
+      villager_id: name,
+      keywords: getSelectedKeyWords(keywords),
+      price_threshold: price,
+    };
+    try {
+      const res = await axios.post('villager/', body);
 
-  const getFilters = () => {
-    axios
-      .get(`villager/${name}/public`)
-      .then(res => {
-        console.log(res);
-        setUserInfo(res.data);
-        setOpen(true);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  const adjustKeywords = userKeywords => {
-    Object.keys(keywords).forEach((word, i) => {
-      toggleKeyword(word, userKeywords.includes(word));
-    });
+      console.log('putUser Success:', res.data);
+    } catch (error) {
+      console.error('putUser Error:', error);
+    }
   };
 
   const getUser = async () => {
@@ -92,13 +84,12 @@ const Select = ({ userName }) => {
     try {
       const res = await axios.get(`villager/${name}/public`);
 
-      console.log('res', res);
       setUserInfo(res.data);
+
       adjustKeywords(res.data.keywords);
       setPrice(res.data.price_threshold);
-      setOpen(true);
     } catch (error) {
-      console.log('err', error);
+      console.log('getUser Error', error);
     }
   };
 
@@ -147,25 +138,19 @@ const Select = ({ userName }) => {
             value={price}
             min='0'
             max='999'
-            onChange={handlePrice}
+            onChange={onHandlePrice}
           ></input>
         </div>
 
         <div class='button-wrapper mb-2'>
-          <button type='button' class='btn btn-warning' onClick={sendFilters}>
+          <button type='button' class='btn btn-warning' onClick={putUser}>
             {' '}
             Update{' '}
           </button>
         </div>
-        <div class='button-wrapper mb-2'>
-          <button type='button' class='btn btn-warning' onClick={getFilters}>
-            {' '}
-            Get Villager Info{' '}
-          </button>
-        </div>
+
         <div
           class='user-info-modal modal fade'
-          show={open}
           id='exampleModalCenter'
           tabindex='-1'
           role='dialog'
