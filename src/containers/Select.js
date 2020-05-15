@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 import './Select.css';
@@ -14,7 +14,7 @@ const Select = ({ userName }) => {
     entry: false,
     nmts: false,
   };
-  const [name, setName] = useState(userName)
+  const [name, setName] = useState(userName);
   const [keywords, setKeywords] = useState(initialKeywords);
   const [price, setPrice] = useState('500');
   const [userInfo, setUserInfo] = useState({});
@@ -32,47 +32,43 @@ const Select = ({ userName }) => {
       [e.currentTarget.id]: !keywords[e.currentTarget.id],
     });
   };
-  const getSelectedKeyWords = (keywords) => {
+  const getSelectedKeyWords = keywords => {
     const selected = [];
     for (const word in keywords) {
       if (keywords[word] === true) {
-        selected.push(word)
+        selected.push(word);
       }
     }
     return selected;
-  }
+  };
 
   const sendFilters = () => {
-    let words = getSelectedKeyWords(keywords)
-    axios.post('villager/', {
-      villager_id: name,
-      keywords: words,
-      price_threshold: price
-    })
-      .then((res) => {
+    let words = getSelectedKeyWords(keywords);
+    axios
+      .post('villager/', {
+        villager_id: name,
+        keywords: words,
+        price_threshold: price,
+      })
+      .then(res => {
         console.log(res);
       })
-      .catch((err) => {
-        console.log(err)
+      .catch(err => {
+        console.log(err);
       });
-
-  }
+  };
   const getFilters = () => {
-    axios.get(`villager/${name}/public`)
-      .then((res) => {
-
+    axios
+      .get(`villager/${name}/public`)
+      .then(res => {
         console.log(res);
         setUserInfo(res.data);
         setOpen(true);
       })
-      .catch((err) => {
-        console.log(err)
+      .catch(err => {
+        console.log(err);
       });
-
-  }
-
-
-
+  };
 
   return (
     <div class='container mt-4 items-center'>
@@ -80,7 +76,7 @@ const Select = ({ userName }) => {
       <div class='mt-2'>
         <div class='keywords-wrapper flex mb-4'>
           <div class='keywords-header'>
-            <h1>Keywords</h1>
+            <h1>Ignore Keywords</h1>
             <h5>
               We'll go ahead and ignore these keywords while finding islands for
               you. Feel free to remove any!
@@ -93,7 +89,7 @@ const Select = ({ userName }) => {
                 type='button'
                 class={`keyword-label tag label btn-info mr-2 ${
                   keywords[keyword] ? 'btn-primary' : 'btn-light'
-                  }`}
+                }`}
               >
                 <span>{keyword}</span>
                 <a id={keyword} onClick={toggleKeyword}>
@@ -103,40 +99,73 @@ const Select = ({ userName }) => {
             ))}
           </ul>
         </div>
-        <div class="input-group price-input mb-2">
+        <div class='input-group price-input mb-2'>
           <h1>How Many Bells?</h1>
-          <input type="text" name='price-input' class=" price-input" value={price} min='0' max="999" onChange={handlePrice}></input>
+          <input
+            type='text'
+            name='price-input'
+            class=' price-input'
+            value={price}
+            min='0'
+            max='999'
+            onChange={handlePrice}
+          ></input>
         </div>
 
         <div class='button-wrapper mb-2'>
-          <button type='button' class='btn btn-warning' onClick={sendFilters}> Update </button>
+          <button type='button' class='btn btn-warning' onClick={sendFilters}>
+            {' '}
+            Update{' '}
+          </button>
         </div>
         <div class='button-wrapper mb-2'>
-          <button type='button' class='btn btn-warning' onClick={getFilters}> Get Villager Info </button>
+          <button type='button' class='btn btn-warning' onClick={getFilters}>
+            {' '}
+            Get Villager Info{' '}
+          </button>
         </div>
-        <div class="user-info-modal modal fade" show={open} id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+        <div
+          class='user-info-modal modal fade'
+          show={open}
+          id='exampleModalCenter'
+          tabindex='-1'
+          role='dialog'
+          aria-labelledby='exampleModalCenterTitle'
+          aria-hidden='true'
+        >
+          <div class='modal-dialog modal-dialog-centered' role='document'>
+            <div class='modal-content'>
+              <div class='modal-header'>
+                <h5 class='modal-title' id='exampleModalLongTitle'>
+                  Modal title
+                </h5>
+                <button
+                  type='button'
+                  class='close'
+                  data-dismiss='modal'
+                  aria-label='Close'
+                >
+                  <span aria-hidden='true'>&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
-                ...
-                             </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+              <div class='modal-body'>...</div>
+              <div class='modal-footer'>
+                <button
+                  type='button'
+                  class='btn btn-secondary'
+                  data-dismiss='modal'
+                >
+                  Close
+                </button>
+                <button type='button' class='btn btn-primary'>
+                  Save changes
+                </button>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
-
   );
 };
 export default Select;
