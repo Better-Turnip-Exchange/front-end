@@ -9,9 +9,9 @@ import keys from '../config';
 const Select = ({ userName }) => {
 
   const initialKeywords = {
-    tip: false,
-    gold: false,
-    miles: false,
+    tip: true,
+    gold: true,
+    miles: true,
     entry: false,
     nmts: false,
   };
@@ -78,23 +78,15 @@ const Select = ({ userName }) => {
 
   const adjustKeywords = (userKeywords) => {
     if (userKeywords) {
-      userKeywords.forEach((word, i) => {
-        keywords[word] = true
+      Object.keys(keywords).forEach((word, i) => {
+        keywords[word] = !userKeywords.includes(word) ? false : true;
       })
-    }
-    else {
-      for (let i = 0; i < Object.keys(initialKeywords).length / 2; i++) {
-        console.log(Object.keys(initialKeywords)[i])
-        keywords[Object.keys(initialKeywords)[i]] = true;
-        console.log(keywords)
-      }
     }
   }
 
   async function getUser() {
     await axios.get(`villager/${name}/public`)
       .then((res) => {
-
         console.log(res);
         setUserInfo(res.data);
         adjustKeywords(res.data.keywords)
@@ -102,8 +94,8 @@ const Select = ({ userName }) => {
         setOpen(true);
       })
       .catch((err) => {
+        console.log('in catch')
         console.log(err)
-        adjustKeywords(null)
       });
 
   }
