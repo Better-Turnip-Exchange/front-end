@@ -13,15 +13,9 @@ const Select = ({ userName }) => {
     entry: false,
     nmts: false,
   };
-  const [villagers, setVillagers] = useState('');
-  const [categories, setCategories] = useState('');
-  const [fees, setFees] = useState('');
-  const [keyword, setKeyword] = useState('');
-  //const [keywords, setKeywords] = useState(['tip', 'gold', 'miles']);
   const [keywords, setKeywords] = useState(initialKeywords);
   const [price, setPrice] = useState('500');
-  const [userFilters, setUserFilters] = useState({});
-  const bundleFilters = () => {};
+
   const handlePrice = e => {
     setPrice(e.target.value);
   };
@@ -33,9 +27,6 @@ const Select = ({ userName }) => {
       ...keywords,
       [e.currentTarget.id]: !keywords[e.currentTarget.id],
     });
-  };
-  const handleKeyword = e => {
-    setKeyword(e.target.value);
   };
 
   return (
