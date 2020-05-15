@@ -1,41 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 import './Select.css';
 import keys from '../config';
 
 const Select = ({ userName }) => {
-
   const initialKeywords = {
     tip: false,
     gold: false,
     miles: false,
-    entry: false,
+    entry: true,
     nmts: false,
   };
 
-  const [name, setName] = useState(userName)
+  const [name, setName] = useState(userName);
   const [keywords, setKeywords] = useState(initialKeywords);
   const [price, setPrice] = useState('500');
   const [userInfo, setUserInfo] = useState({});
   const [open, setOpen] = useState(false);
 
-
   const handlePrice = e => {
     setPrice(e.target.value);
   };
-
-  const toggleKeyword = e => {
+  const onToggleKeyword = e => {
     e.preventDefault();
-    console.log('Toggling keyword');
-    console.log(e.target)
+    toggleKeyword(e.currentTarget.id);
+  };
+
+  const toggleKeyword = (key, bool = !keywords[key]) => {
+    console.log('Toggling keyword', key, 'to', bool);
     setKeywords({
       ...keywords,
-      [e.currentTarget.id]: !keywords[e.currentTarget.id],
+      [key]: bool,
     });
   };
+
   const getSelectedKeyWords = keywords => {
     const selected = [];
     for (const word in keywords) {
@@ -72,48 +73,33 @@ const Select = ({ userName }) => {
       .catch(err => {
         console.log(err);
       });
+  };
 
-  }
+  const adjustKeywords = userKeywords => {
+    Object.keys(keywords).map(key => (keywords[key] = false));
+    userKeywords.forEach((word, i) => {
+      toggleKeyword(word, true);
+    });
+  };
 
+  const getUser = async () => {
+    console.log('getuser');
+    try {
+      const res = await axios.get(`villager/${name}/public`);
 
-  const adjustKeywords = (userKeywords) => {
-    if (userKeywords) {
-      userKeywords.forEach((word, i) => {
-        keywords[word] = true
-      })
+      console.log('res', res);
+      setUserInfo(res.data);
+      adjustKeywords(res.data.keywords);
+      setPrice(res.data.price_threshold);
+      setOpen(true);
+    } catch (error) {
+      console.log('err', error);
     }
-    else {
-      for (let i = 0; i < Object.keys(initialKeywords).length / 2; i++) {
-        console.log(Object.keys(initialKeywords)[i])
-        keywords[Object.keys(initialKeywords)[i]] = true;
-        console.log(keywords)
-      }
-    }
-  }
-
-  async function getUser() {
-    await axios.get(`villager/${name}/public`)
-      .then((res) => {
-
-        console.log(res);
-        setUserInfo(res.data);
-        adjustKeywords(res.data.keywords)
-        setPrice(res.data.price_threshold)
-        setOpen(true);
-      })
-      .catch((err) => {
-        console.log(err)
-        adjustKeywords(null)
-      });
-
-  }
+  };
 
   useEffect(() => {
     getUser();
-  }, [name])
-
-
-
+  }, [name]);
 
   return (
     <div class='container mt-4 items-center'>
@@ -134,12 +120,17 @@ const Select = ({ userName }) => {
                 type='button'
                 class={`keyword-label tag label btn-info mr-2 ${
                   keywords[keyword] ? 'btn-primary' : 'btn-light'
-                  }`}
+                }`}
                 id={keyword}
-                onClick={!keywords[keyword] ? toggleKeyword : null}
+                onClick={!keywords[keyword] ? onToggleKeyword : null}
               >
                 <span id={keyword}>{keyword}</span>
-                <a id={keyword} style={!keywords[keyword] ? { "display": "none" } : null} id={keyword} onClick={toggleKeyword}>
+                <a
+                  id={keyword}
+                  style={!keywords[keyword] ? { display: 'none' } : null}
+                  id={keyword}
+                  onClick={onToggleKeyword}
+                >
                   <FontAwesomeIcon icon={faTimesCircle} size='xs' />
                 </a>
               </div>
@@ -212,8 +203,7 @@ const Select = ({ userName }) => {
           </div>
         </div>
       </div>
-    </div >
-
+    </div>
   );
 };
 export default Select;
