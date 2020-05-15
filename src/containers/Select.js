@@ -6,15 +6,11 @@ import axios from 'axios';
 import './Select.css';
 
 const Select = props => {
-
-    const [villagers, setVillagers] = useState('');
-    const [categories, setCategories] = useState('');
-    const [fees, setFees] = useState('');
     const [name, setName] = useState(props.userName)
-    const [keyword, setKeyword] = useState('');
     const [keywords, setKeywords] = useState(['tip', 'gold', 'miles']);
     const [price, setPrice] = useState('500');
-    const [userFilters, setUserFilters] = useState({});
+    const [userInfo, setUserInfo] = useState({});
+    const [open, setOpen] = useState(false);
     const sendFilters = () => {
         axios.post('villager/', {
             villager_id: name,
@@ -29,17 +25,21 @@ const Select = props => {
             });
 
     }
+    const getFilters = () => {
+        axios.get(`villager/${name}/public`)
+            .then((res) => {
+
+                console.log(res);
+                setUserInfo(res.data);
+                setOpen(true);
+            })
+            .catch((err) => {
+                console.log(err)
+            });
+
+    }
     const handlePrice = (e) => {
         setPrice(e.target.value);
-    }
-    const addKeyword = (e) => {
-        e.preventDefault()
-        console.log(keyword)
-        let newWord = keyword.trim()
-        if (newWord.length > 0 && !keywords.includes(newWord)) {
-            setKeywords([...keywords, newWord])
-        }
-        setKeyword('')
     }
     const removeKeyword = (e) => {
         e.preventDefault()
@@ -50,11 +50,6 @@ const Select = props => {
         setKeywords(keywords.filter(word => word !== removed))
         console.log(keywords)
     }
-    const handleKeyword = (e) => {
-        setKeyword(e.target.value);
-    }
-
-
     return (
         <div class='container mt-4 items-center'>
             <h3 class='welcome-message'> Welcome, {props.userName.split(' ')[0]}! </h3>
@@ -85,7 +80,28 @@ const Select = props => {
                 <div class='button-wrapper mb-2'>
                     <button type='button' class='btn btn-warning' onClick={sendFilters}> Update </button>
                 </div>
-
+                <div class='button-wrapper mb-2'>
+                    <button type='button' class='btn btn-warning' onClick={getFilters}> Get Villager Info </button>
+                </div>
+                <div class="user-info-modal modal fade" show={open} id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                             </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class='card-deck text-center'>
                     <div class='card box-shadow'>
                         <h3 class='card-header'>
