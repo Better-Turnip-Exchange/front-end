@@ -2,37 +2,52 @@ import React, { useEffect, useState } from 'react';
 import { withRouter, useHistory } from 'react-router-dom';
 import Routes from './Routes';
 import './App.css';
+import './build.css';
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(false)
+  const [authenticated, setAuthenticated] = useState(false);
   const [userName, setUserName] = useState('');
-  const [token, setToken] = useState('')
+  const [token, setToken] = useState('');
   useEffect(() => {
     onLoad();
   }, []);
-  const hooks = { authenticated, setAuthenticated, userName, setUserName, token, setToken }
+  const hooks = {
+    authenticated,
+    setAuthenticated,
+    userName,
+    setUserName,
+    token,
+    setToken,
+  };
   const logOut = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
     setAuthenticated(false);
-  }
+  };
   async function onLoad() {
     let userToken = localStorage.getItem('token') || null;
     let user = localStorage.getItem('userName') || null;
     if (userToken && user) {
-      setAuthenticated(true)
-      setToken(userToken)
-      setUserName(user)
+      setAuthenticated(true);
+      setToken(userToken);
+      setUserName(user);
     }
   }
 
   return (
     <>
       <nav class='navbar bg-light justify-content-between'>
-        <span class='navbar-brand mb-0 h1' href='/'> The Better Turnip Exchange</span>
-        {authenticated && <button class='btn btn-light' onClick={logOut}>Logout</button>}
+        <span class='navbar-brand mb-0 h1' href='/'>
+          {' '}
+          The Better Turnip Exchange
+        </span>
+        {authenticated && (
+          <button class='btn btn-light' onClick={logOut}>
+            Logout
+          </button>
+        )}
       </nav>
-      <div className="container-fluid app">
+      <div className='container-fluid app'>
         <Routes appProps={{ ...hooks }} />
       </div>
     </>
