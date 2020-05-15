@@ -1,5 +1,4 @@
 .price-input {
-
 }
 .welcome-message {
   margin-bottom: 2rem;
@@ -18,6 +17,7 @@
   padding: 0.4em 0.4em 0.4em;
   margin: 0 0.2em 0.2em 0;
   border-radius: 0.25;
+  box-shadow: grey;
 }
 .keyword-label a {
   color: #bbb;
@@ -29,4 +29,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.button-wrapper{
+  display: block;
 }
