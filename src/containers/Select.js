@@ -28,12 +28,11 @@ const Select = ({ userName }) => {
 
   const toggleKeyword = e => {
     e.preventDefault();
-    console.log(e.currentTarget.id);
-    let newKeywords = { ...keywords };
-    newKeywords[e.currentTarget.id] = !newKeywords[e.currentTarget.id];
-    setKeywords(newKeywords);
-    //keywords[e.currentTarget.id] = !keywords[e.currentTarget.id];
-    console.log(keywords);
+
+    setKeywords({
+      ...keywords,
+      [e.currentTarget.id]: !keywords[e.currentTarget.id],
+    });
   };
   const handleKeyword = e => {
     setKeyword(e.target.value);
