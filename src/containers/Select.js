@@ -3,9 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
-import './Select.css';
-import keys from '../config';
-
 const Select = ({ userName }) => {
   const initialState = {
     name: userName,
@@ -96,59 +93,57 @@ const Select = ({ userName }) => {
   return (
     <div class='container flex items-center justify-center'>
       <div class='inline-block mt-2'>
-        <div class='flex items-center'>
-          <h3 class='font-title'> Welcome, {userName.split(' ')[0]}! </h3>
+        <div class='welcome-wrapper text-center'>
+          <h3 class='font-title text-4xl'> Welcome, {userName.split(' ')[0]}! </h3>
         </div>
-        <div class=''>
-          <div class=''>
-            <div class='mt-3 content-center'>
-              <h1>Ignore Keywords</h1>
-              <h5>
+        <div class='filter-wrapper'>
+          <div class='keyword-wrapper'>
+            <div class='keyword-message mt-3 text-center'>
+              <h1 class='font-title font-bolder text-3xl py-1'>Ignore Keywords</h1>
+              <h5 class='py-1 text-xl'>
                 We'll go ahead and ignore these keywords while finding islands for
                 you. Feel free to remove any!
             </h5>
             </div>
 
-            <ul class='py-1 keyword-list'>
+            <ul class='keyword-list py-1 flex items-center justify-center'>
               {Object.keys(keywords).map(keyword => (
-                <div
-                  type='button'
-                  class={`keyword-label tag label btn-info mr-2 ${
-                    keywords[keyword] ? 'btn-primary' : 'btn-light'
+                <button
+                  class={`keyword-label rounded py-2 px-3 mr-2 shadow-md ${
+                    keywords[keyword] ? 'bg-yellow-200 hover:shadow-lg' : 'bg-gray-100 hover:bg-yellow-200 hover:shadow-lg'
                     }`}
                   id={keyword}
                   onClick={!keywords[keyword] ? onToggleKeyword : null}
                 >
-                  <span id={keyword}>{keyword}</span>
                   <a
                     id={keyword}
-                    style={!keywords[keyword] ? { display: 'none' } : null}
+                    class={!keywords[keyword] ? 'hidden' : null}
                     id={keyword}
                     onClick={onToggleKeyword}
                   >
                     <FontAwesomeIcon icon={faTimesCircle} size='xs' />
                   </a>
-                </div>
+                  <span class={`keyword title-font ${keywords[keyword] ? 'ml-2' : null}`} id={keyword}>{keyword}</span>
+
+                </button>
               ))}
             </ul>
           </div>
-          <div class=''>
-            <h1>How Many Bells?</h1>
+          <div class='container text-center mt-4'>
+            <h1 class='font-title text-3xl font-bolder my-2'>How Many Bells?</h1>
             <input
               type='text'
-              class='bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg '
+              class='bg-white mb-2 px-1 shadow-sm focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg '
               value={price}
               min='0'
               max='999'
               onChange={onHandlePrice}
             ></input>
-          </div>
-
-          <div class='button-wrapper mb-2'>
-            <button type='button' class='btn btn-warning' onClick={putUser}>
-              {' '}
-            Update{' '}
+            <div class='button-wrapper items-center my-1'>
+              <button class='bg-green-300 rounded-lg py-3 px-8 shadow-md hover:bg-green-400 hover:shadow-lg' onClick={putUser}>
+                Update
             </button>
+            </div>
           </div>
         </div>
       </div>
