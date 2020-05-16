@@ -94,58 +94,62 @@ const Select = ({ userName }) => {
   };
 
   return (
-    <div class='container mt-2 items-center'>
-      <h3 class='font-title'> Welcome, {userName.split(' ')[0]}! </h3>
-      <div class='mt-2'>
-        <div class='mb-4'>
-          <div class='mt-3'>
-            <h1>Ignore Keywords</h1>
-            <h5>
-              We'll go ahead and ignore these keywords while finding islands for
-              you. Feel free to remove any!
-            </h5>
-          </div>
-
-          <ul class='py-1 keyword-list'>
-            {Object.keys(keywords).map(keyword => (
-              <div
-                type='button'
-                class={`keyword-label tag label btn-info mr-2 ${
-                  keywords[keyword] ? 'btn-primary' : 'btn-light'
-                  }`}
-                id={keyword}
-                onClick={!keywords[keyword] ? onToggleKeyword : null}
-              >
-                <span id={keyword}>{keyword}</span>
-                <a
-                  id={keyword}
-                  style={!keywords[keyword] ? { display: 'none' } : null}
-                  id={keyword}
-                  onClick={onToggleKeyword}
-                >
-                  <FontAwesomeIcon icon={faTimesCircle} size='xs' />
-                </a>
-              </div>
-            ))}
-          </ul>
+    <div class='container flex items-center justify-center'>
+      <div class='inline-block mt-2'>
+        <div class='flex items-center'>
+          <h3 class='font-title'> Welcome, {userName.split(' ')[0]}! </h3>
         </div>
         <div class=''>
-          <h1>How Many Bells?</h1>
-          <input
-            type='text'
-            class='bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg '
-            value={price}
-            min='0'
-            max='999'
-            onChange={onHandlePrice}
-          ></input>
-        </div>
+          <div class=''>
+            <div class='mt-3 content-center'>
+              <h1>Ignore Keywords</h1>
+              <h5>
+                We'll go ahead and ignore these keywords while finding islands for
+                you. Feel free to remove any!
+            </h5>
+            </div>
 
-        <div class='button-wrapper mb-2'>
-          <button type='button' class='btn btn-warning' onClick={putUser}>
-            {' '}
+            <ul class='py-1 keyword-list'>
+              {Object.keys(keywords).map(keyword => (
+                <div
+                  type='button'
+                  class={`keyword-label tag label btn-info mr-2 ${
+                    keywords[keyword] ? 'btn-primary' : 'btn-light'
+                    }`}
+                  id={keyword}
+                  onClick={!keywords[keyword] ? onToggleKeyword : null}
+                >
+                  <span id={keyword}>{keyword}</span>
+                  <a
+                    id={keyword}
+                    style={!keywords[keyword] ? { display: 'none' } : null}
+                    id={keyword}
+                    onClick={onToggleKeyword}
+                  >
+                    <FontAwesomeIcon icon={faTimesCircle} size='xs' />
+                  </a>
+                </div>
+              ))}
+            </ul>
+          </div>
+          <div class=''>
+            <h1>How Many Bells?</h1>
+            <input
+              type='text'
+              class='bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg '
+              value={price}
+              min='0'
+              max='999'
+              onChange={onHandlePrice}
+            ></input>
+          </div>
+
+          <div class='button-wrapper mb-2'>
+            <button type='button' class='btn btn-warning' onClick={putUser}>
+              {' '}
             Update{' '}
-          </button>
+            </button>
+          </div>
         </div>
       </div>
     </div>

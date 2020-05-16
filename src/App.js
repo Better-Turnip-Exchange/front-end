@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter, useHistory } from 'react-router-dom';
 import Routes from './Routes';
-import './App.css';
+
 import './build.css';
 
 function App() {
@@ -47,7 +47,7 @@ function App() {
           </button>
         )}
       </nav>
-      <div className='container-fluid app'>
+      <div className=''>
         <Routes appProps={{ ...hooks }} />
       </div>
     </>

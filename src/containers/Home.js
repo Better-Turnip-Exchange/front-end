@@ -17,7 +17,7 @@ const Home = (props) => {
     return (
         <div>
 
-            <div className="login">
+            <div>
                 {props.authenticated ? renderSelect() : renderLogin()}
             </div>
         </div>
