@@ -7,7 +7,7 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <Router>
-    <App />
+    <App class='h-screen'/>
   </Router>,
   document.getElementById('root')
 );

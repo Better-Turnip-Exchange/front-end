@@ -15,11 +15,8 @@ const Home = (props) => {
         )
     }
     return (
-        <div>
-
-            <div>
-                {props.authenticated ? renderSelect() : renderLogin()}
-            </div>
+        <div class='container flex h-full'>
+            {props.authenticated ? renderSelect() : renderLogin()}
         </div>
 
     )
