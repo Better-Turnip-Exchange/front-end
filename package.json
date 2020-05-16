@@ -20,7 +20,7 @@
     "react-transition-group": "^4.4.1"
   },
   "scripts": {
-    "start": "export HTTPS=true&&npm run watch:css && react-scripts start",
+    "start": "npm run watch:css && react-scripts start",
     "build": "npm run build:css && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

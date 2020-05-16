@@ -94,11 +94,11 @@ const Select = ({ userName }) => {
   };
 
   return (
-    <div class='container mt-4 items-center'>
-      <h3 class='welcome-message'> Welcome, {userName.split(' ')[0]}! </h3>
+    <div class='container mt-2 items-center'>
+      <h3 class='font-title'> Welcome, {userName.split(' ')[0]}! </h3>
       <div class='mt-2'>
-        <div class='keywords-wrapper flex mb-4'>
-          <div class='keywords-header'>
+        <div class='mb-4'>
+          <div class='mt-3'>
             <h1>Ignore Keywords</h1>
             <h5>
               We'll go ahead and ignore these keywords while finding islands for
@@ -106,13 +106,13 @@ const Select = ({ userName }) => {
             </h5>
           </div>
 
-          <ul class='keyword-list'>
+          <ul class='py-1 keyword-list'>
             {Object.keys(keywords).map(keyword => (
               <div
                 type='button'
                 class={`keyword-label tag label btn-info mr-2 ${
                   keywords[keyword] ? 'btn-primary' : 'btn-light'
-                }`}
+                  }`}
                 id={keyword}
                 onClick={!keywords[keyword] ? onToggleKeyword : null}
               >
@@ -129,12 +129,11 @@ const Select = ({ userName }) => {
             ))}
           </ul>
         </div>
-        <div class='input-group price-input mb-2'>
+        <div class=''>
           <h1>How Many Bells?</h1>
           <input
             type='text'
-            name='price-input'
-            class=' price-input'
+            class='bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg '
             value={price}
             min='0'
             max='999'
@@ -148,48 +147,9 @@ const Select = ({ userName }) => {
             Update{' '}
           </button>
         </div>
-
-        <div
-          class='user-info-modal modal fade'
-          id='exampleModalCenter'
-          tabindex='-1'
-          role='dialog'
-          aria-labelledby='exampleModalCenterTitle'
-          aria-hidden='true'
-        >
-          <div class='modal-dialog modal-dialog-centered' role='document'>
-            <div class='modal-content'>
-              <div class='modal-header'>
-                <h5 class='modal-title' id='exampleModalLongTitle'>
-                  Modal title
-                </h5>
-                <button
-                  type='button'
-                  class='close'
-                  data-dismiss='modal'
-                  aria-label='Close'
-                >
-                  <span aria-hidden='true'>&times;</span>
-                </button>
-              </div>
-              <div class='modal-body'>...</div>
-              <div class='modal-footer'>
-                <button
-                  type='button'
-                  class='btn btn-secondary'
-                  data-dismiss='modal'
-                >
-                  Close
-                </button>
-                <button type='button' class='btn btn-primary'>
-                  Save changes
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
+
   );
 };
 export default Select;
