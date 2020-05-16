@@ -99,7 +99,7 @@ const Select = ({ userName }) => {
       <div class='mt-2'>
         <div class='keywords-wrapper flex mb-4'>
           <div class='keywords-header'>
-            <h1>Ignore Keywords</h1>
+            <h1 className='font-title'>Ignore Keywords</h1>
             <h5>
               We'll go ahead and ignore these keywords while finding islands for
               you. Feel free to remove any!
