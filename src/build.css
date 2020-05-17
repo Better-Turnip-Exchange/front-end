@@ -653,6 +653,7 @@ video {
   padding-left: 2rem;
   padding-right: 2rem;
   font-family: Arvo, Georgia, serif;
+  display: inline-block;
 }
 
 .btn:hover {
