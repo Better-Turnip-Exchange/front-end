@@ -23,7 +23,7 @@ const Select = ({ userName }) => {
 
   useEffect(() => {
     getUser();
-  }, []);
+  });
 
   /* Event Calls */
   const onHandlePrice = e => {
@@ -94,24 +94,31 @@ const Select = ({ userName }) => {
     <div class='container flex py-40 justify-center'>
       <div class='inline-block mt-2'>
         <div class='welcome-wrapper text-center'>
-          <h3 class='font-title text-4xl'> Welcome, {userName.split(' ')[0]}! </h3>
+          <h3 class='font-title text-4xl'>
+            {' '}
+            Welcome, {userName.split(' ')[0]}!{' '}
+          </h3>
         </div>
         <div class='filter-wrapper'>
           <div class='keyword-wrapper'>
             <div class='keyword-message mt-3 text-center'>
-              <h1 class='font-title font-bolder text-3xl py-1'>Ignore Keywords</h1>
+              <h1 class='font-title font-bolder text-3xl py-1'>
+                Ignore Keywords
+              </h1>
               <h5 class='py-1 text-xl'>
-                We'll go ahead and ignore these keywords while finding islands for
-                you. Feel free to remove any!
-            </h5>
+                We'll go ahead and ignore these keywords while finding islands
+                for you. Feel free to remove any!
+              </h5>
             </div>
 
             <ul class='keyword-list py-1 flex items-center justify-center'>
               {Object.keys(keywords).map(keyword => (
                 <button
                   class={`spin keyword-label rounded py-2 px-3 mr-2 shadow-md ${
-                    keywords[keyword] ? 'bg-yellow-200 hover:shadow-lg' : 'bg-gray-100 hover:bg-yellow-200 hover:shadow-lg'
-                    }`}
+                    keywords[keyword]
+                      ? 'bg-yellow-200 hover:shadow-lg'
+                      : 'bg-gray-100 hover:bg-yellow-200 hover:shadow-lg'
+                  }`}
                   id={keyword}
                   onClick={!keywords[keyword] ? onToggleKeyword : null}
                 >
@@ -123,14 +130,22 @@ const Select = ({ userName }) => {
                   >
                     <FontAwesomeIcon icon={faTimesCircle} size='xs' />
                   </a>
-                  <span class={`keyword title-font ${keywords[keyword] ? 'ml-2' : null}`} id={keyword}>{keyword}</span>
-
+                  <span
+                    class={`keyword title-font ${
+                      keywords[keyword] ? 'ml-2' : null
+                    }`}
+                    id={keyword}
+                  >
+                    {keyword}
+                  </span>
                 </button>
               ))}
             </ul>
           </div>
           <div class='container text-center mt-4'>
-            <h1 class='font-title text-3xl font-bolder my-2'>How Many Bells?</h1>
+            <h1 class='font-title text-3xl font-bolder my-2'>
+              How Many Bells?
+            </h1>
             <input
               type='text'
               class='bg-white mb-2 px-1 shadow-sm focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg '
@@ -140,15 +155,17 @@ const Select = ({ userName }) => {
               onChange={onHandlePrice}
             ></input>
             <div class='button-wrapper items-center my-1'>
-              <button class='bg-green-300 rounded-lg py-3 px-8 shadow-md hover:bg-green-400 hover:shadow-lg' onClick={putUser}>
+              <button
+                class='bg-green-300 rounded-lg py-3 px-8 shadow-md hover:bg-green-400 hover:shadow-lg'
+                onClick={putUser}
+              >
                 Update
-            </button>
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   );
 };
 export default Select;

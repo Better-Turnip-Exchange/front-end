@@ -34,14 +34,14 @@ function App() {
   }
 
   return (
-    <div class='bg-blue-200 h-screen'>
-      <div class='flex justify-between flex-wrap bg-yellow-300 p-3'>
-        <span class='navbar-brand mb-0 h1 text-xl' href='/'>
-          <span class='font-extrabold'>The </span>Better Turnip Exchange
+    <div className='bg-blue-200 h-screen'>
+      <div className='flex justify-between flex-wrap bg-yellow-300 p-3'>
+        <span className='navbar-brand mb-0 h1 text-xl' href='/'>
+          <span className='font-extrabold'>The </span>Better Turnip Exchange
         </span>
       </div>
 
-      <div class='max-auto'>
+      <div className='max-auto'>
         <Routes appProps={{ ...hooks }} />
       </div>
     </div>
