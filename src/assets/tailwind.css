@@ -4,4 +4,35 @@
 
 @tailwind components;
 
+.title {
+  @apply text-acBrown;
+  @apply font-title;
+  @apply text-4xl;
+}
+
+.btn {
+  @apply rounded-lg;
+  @apply shadow-md;
+  @apply py-2;
+  @apply px-8;
+  @apply font-title;
+  display: inline-block;
+}
+
+.btn:hover {
+  @apply shadow-lg;
+  color: inherit;
+}
+
+.btn-blue {
+  @apply bg-acBlue;
+  @apply text-acLight;
+}
+
+.btn-blue:hover {
+  @apply text-acLight;
+  outline: thick;
+  outline-color: theme('colors.acYellow');
+}
+
 @tailwind utilities;

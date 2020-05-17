@@ -23,7 +23,7 @@ const Select = ({ userName }) => {
 
   useEffect(() => {
     getUser();
-  }, []);
+  });
 
   /* Event Calls */
   const onHandlePrice = e => {
@@ -113,42 +113,52 @@ const Select = ({ userName }) => {
   };
 
   return (
-    <div id='select-container' class='container flex py-32 justify-center'>
-      <div id='select-wrapper' class='text-center'>
-        <h3 class='font-title text-4xl'> Welcome, {userName.split(' ')[0]}! </h3>
-        <div class='filter-wrapper'>
-          <div class='keyword-wrapper'>
-            <div class='keyword-message mt-3 text-center'>
-              <h1 class='font-title font-bolder text-3xl py-1'>Ignore Keywords</h1>
-              <h5 class='py-1 text-xl'>
-                We'll go ahead and ignore these keywords while finding islands for
-                you. Feel free to remove any!
-            </h5>
-            </div>
-            <ul class='keyword-list py-1 flex items-center justify-center'>
-              {renderKeywordList(keywords)}
-            </ul>
+    <div id='select-container' class='flex py-40 content-center justify-center'>
+      <div id='select-wrapper'>
+
+        <div id='welcome-wrapper' class='text-center'>
+          <h3 class='font-title text-4xl'>
+            Welcome, {userName.split(' ')[0]}!{' '}
+          </h3>
+        </div>
+
+        <div id='keyword-wrapper'>
+          <div class='keyword-message mt-3 text-center'>
+            <h1 class='font-title font-bolder text-3xl py-1'>
+              Ignore Keywords
+              </h1>
+            <h5 class='py-1 text-xl'>
+              We'll go ahead and ignore these keywords while finding islands
+              for you. Feel free to remove any!
+              </h5>
           </div>
-          <div class='container text-center mt-4'>
-            <h1 class='font-title text-3xl font-bolder my-2'>How Many Bells?</h1>
-            <input
-              type='text'
-              class='bg-white mb-2 px-1 shadow-sm focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg '
-              value={price}
-              min='0'
-              max='999'
-              onChange={onHandlePrice}
-            ></input>
-            <div class='button-wrapper items-center my-1'>
-              <button class='bg-green-300 rounded-lg py-3 px-8 shadow-md hover:bg-green-400 hover:shadow-lg' onClick={putUser}>
-                Update
-            </button>
-            </div>
+          <ul class='keyword-list py-1 flex items-center justify-center'>
+            {renderKeywordList(keywords)}
+          </ul>
+        </div>
+        <div id='price-wrapper' class='container text-center mt-4'>
+          <h1 class='font-title text-3xl font-bolder my-2'>
+            How Many Bells?
+            </h1>
+          <input
+            type='text'
+            class='bg-white mb-2 px-1 shadow-sm focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg '
+            value={price}
+            min='0'
+            max='999'
+            onChange={onHandlePrice}
+          ></input>
+          <div id='update-button-wrapper' class='items-center my-1'>
+            <button
+              class='bg-green-300 rounded-lg py-3 px-8 shadow-md hover:bg-green-400 hover:shadow-lg'
+              onClick={putUser}
+            >
+              Update
+              </button>
           </div>
         </div>
       </div>
     </div>
-
   );
 };
 export default Select;
