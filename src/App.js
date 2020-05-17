@@ -34,22 +34,17 @@ function App() {
   }
 
   return (
-    <>
-      <nav class='navbar bg-light justify-content-between'>
-        <span class='navbar-brand mb-0 h1' href='/'>
-          {' '}
-          The Better Turnip Exchange
+    <div>
+      <div class='flex justify-between flex-wrap bg-yellow-300 p-3'>
+        <span class='navbar-brand mb-0 h1 text-xl' href='/'>
+          <span class='font-extrabold'>The </span>Better Turnip Exchange
         </span>
-        {authenticated && (
-          <button class='btn btn-light' onClick={logOut}>
-            Logout
-          </button>
-        )}
-      </nav>
-      <div class='container'>
+      </div>
+
+      <div class='max-auto bg-blue-200 h-screen'>
         <Routes appProps={{ ...hooks }} />
       </div>
-    </>
+    </div>
   );
 }
 
