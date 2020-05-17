@@ -91,7 +91,7 @@ const Select = ({ userName }) => {
   };
 
   return (
-    <div class='container flex items-center justify-center'>
+    <div class='container flex py-40 justify-center'>
       <div class='inline-block mt-2'>
         <div class='welcome-wrapper text-center'>
           <h3 class='font-title text-4xl'> Welcome, {userName.split(' ')[0]}! </h3>
@@ -109,7 +109,7 @@ const Select = ({ userName }) => {
             <ul class='keyword-list py-1 flex items-center justify-center'>
               {Object.keys(keywords).map(keyword => (
                 <button
-                  class={`keyword-label rounded py-2 px-3 mr-2 shadow-md ${
+                  class={`spin keyword-label rounded py-2 px-3 mr-2 shadow-md ${
                     keywords[keyword] ? 'bg-yellow-200 hover:shadow-lg' : 'bg-gray-100 hover:bg-yellow-200 hover:shadow-lg'
                     }`}
                   id={keyword}
