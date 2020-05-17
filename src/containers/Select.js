@@ -60,6 +60,30 @@ const Select = ({ userName }) => {
     return selected;
   };
 
+  const renderKeywordList = keywords => {
+
+    return Object.keys(keywords).map(keyword => (
+      <button
+        class={`spin keyword-label rounded py-2 px-3 mr-2 shadow-md ${
+          keywords[keyword] ? 'bg-yellow-200 hover:shadow-lg' : 'bg-gray-100 hover:bg-yellow-200 hover:shadow-lg'
+          }`}
+        id={keyword}
+        onClick={!keywords[keyword] ? onToggleKeyword : null}
+      >
+        <a
+          id={keyword}
+          class={!keywords[keyword] ? 'hidden' : null}
+          id={keyword}
+          onClick={onToggleKeyword}
+        >
+          <FontAwesomeIcon icon={faTimesCircle} size='xs' />
+        </a>
+        <span class={`keyword title-font ${keywords[keyword] ? 'ml-2' : null}`} id={keyword}>{keyword}</span>
+
+      </button>
+    ))
+  };
+
   /* Server calls */
   const putUser = async () => {
     const body = {
@@ -80,9 +104,7 @@ const Select = ({ userName }) => {
     console.log('getuser');
     try {
       const res = await axios.get(`villager/${name}/public`);
-
       setUserInfo(res.data);
-
       adjustKeywords(res.data.keywords);
       setPrice(res.data.price_threshold);
     } catch (error) {
@@ -91,11 +113,9 @@ const Select = ({ userName }) => {
   };
 
   return (
-    <div class='container flex py-40 justify-center'>
-      <div class='inline-block mt-2'>
-        <div class='welcome-wrapper text-center'>
-          <h3 class='font-title text-4xl'> Welcome, {userName.split(' ')[0]}! </h3>
-        </div>
+    <div id='select-container' class='container flex py-32 justify-center'>
+      <div id='select-wrapper' class='text-center'>
+        <h3 class='font-title text-4xl'> Welcome, {userName.split(' ')[0]}! </h3>
         <div class='filter-wrapper'>
           <div class='keyword-wrapper'>
             <div class='keyword-message mt-3 text-center'>
@@ -105,28 +125,8 @@ const Select = ({ userName }) => {
                 you. Feel free to remove any!
             </h5>
             </div>
-
             <ul class='keyword-list py-1 flex items-center justify-center'>
-              {Object.keys(keywords).map(keyword => (
-                <button
-                  class={`spin keyword-label rounded py-2 px-3 mr-2 shadow-md ${
-                    keywords[keyword] ? 'bg-yellow-200 hover:shadow-lg' : 'bg-gray-100 hover:bg-yellow-200 hover:shadow-lg'
-                    }`}
-                  id={keyword}
-                  onClick={!keywords[keyword] ? onToggleKeyword : null}
-                >
-                  <a
-                    id={keyword}
-                    class={!keywords[keyword] ? 'hidden' : null}
-                    id={keyword}
-                    onClick={onToggleKeyword}
-                  >
-                    <FontAwesomeIcon icon={faTimesCircle} size='xs' />
-                  </a>
-                  <span class={`keyword title-font ${keywords[keyword] ? 'ml-2' : null}`} id={keyword}>{keyword}</span>
-
-                </button>
-              ))}
+              {renderKeywordList(keywords)}
             </ul>
           </div>
           <div class='container text-center mt-4'>

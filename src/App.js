@@ -41,7 +41,7 @@ function App() {
         </span>
       </div>
 
-      <div class='max-auto bg-blue-200'>
+      <div class='mx-auto bg-blue-200'>
         <Routes appProps={{ ...hooks }} />
       </div>
     </div>

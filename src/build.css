@@ -580,6 +580,35 @@ video {
   height: auto;
 }
 
+*, *::before, *::after{
+  --animation-duration: 1s;
+  --animation-iteration-count: infinite;
+}
+
+@keyframes spin{
+  from{
+    transform: rotate(0deg);
+  }
+
+  to{
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes jump{
+  0%{
+    transform: translateY(0%);
+  }
+
+  50%{
+    transform: translateY(-100%);
+  }
+
+  100%{
+    transform: translateY(0%);
+  }
+}
+
 .container{
   width: 100%;
 }
@@ -14341,6 +14370,158 @@ video {
   transition-delay: 1000ms;
 }
 
+.animation-none{
+  animation-name: none;
+}
+
+.animation-spin{
+  animation-name: spin;
+  animation-duration: 1s;
+  animation-duration: var(--animation-duration);
+  animation-iteration-count: infinite;
+  animation-iteration-count: var(--animation-iteration-count);
+}
+
+.animation-jump{
+  animation-name: jump;
+  animation-duration: 1s;
+  animation-duration: var(--animation-duration);
+  animation-iteration-count: infinite;
+  animation-iteration-count: var(--animation-iteration-count);
+}
+
+.animation-0s{
+  --animation-duration: 0s;
+  animation-duration: 0s;
+  animation-duration: var(--animation-duration);
+}
+
+.animation-1s{
+  --animation-duration: 1s;
+  animation-duration: 1s;
+  animation-duration: var(--animation-duration);
+}
+
+.animation-2s{
+  --animation-duration: 2s;
+  animation-duration: 2s;
+  animation-duration: var(--animation-duration);
+}
+
+.animation-3s{
+  --animation-duration: 3s;
+  animation-duration: 3s;
+  animation-duration: var(--animation-duration);
+}
+
+.animation-4s{
+  --animation-duration: 4s;
+  animation-duration: 4s;
+  animation-duration: var(--animation-duration);
+}
+
+.animation-5s{
+  --animation-duration: 5s;
+  animation-duration: 5s;
+  animation-duration: var(--animation-duration);
+}
+
+.animation-linear{
+  animation-timing-function: linear;
+}
+
+.animation-ease{
+  animation-timing-function: ease;
+}
+
+.animation-ease-in{
+  animation-timing-function: ease-in;
+}
+
+.animation-ease-out{
+  animation-timing-function: ease-out;
+}
+
+.animation-ease-in-out{
+  animation-timing-function: ease-in-out;
+}
+
+.animation-delay-0s{
+  animation-delay: 0s;
+}
+
+.animation-delay-1s{
+  animation-delay: 1s;
+}
+
+.animation-delay-2s{
+  animation-delay: 2s;
+}
+
+.animation-delay-3s{
+  animation-delay: 3s;
+}
+
+.animation-delay-4s{
+  animation-delay: 4s;
+}
+
+.animation-delay-5s{
+  animation-delay: 5s;
+}
+
+.animation-once{
+  --animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  animation-iteration-count: var(--animation-iteration-count);
+}
+
+.animation-infinite{
+  --animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  animation-iteration-count: var(--animation-iteration-count);
+}
+
+.animation-normal{
+  animation-direction: normal;
+}
+
+.animation-reverse{
+  animation-direction: reverse;
+}
+
+.animation-alternate{
+  animation-direction: alternate;
+}
+
+.animation-alternate-reverse{
+  animation-direction: alternate-reverse;
+}
+
+.animation-fill-none{
+  animation-fill-mode: none;
+}
+
+.animation-fill-forwards{
+  animation-fill-mode: forwards;
+}
+
+.animation-fill-backwards{
+  animation-fill-mode: backwards;
+}
+
+.animation-fill-both{
+  animation-fill-mode: both;
+}
+
+.animation-running{
+  animation-play-state: running;
+}
+
+.animation-paused{
+  animation-play-state: paused;
+}
+
 @media (min-width: 640px){
   .sm\:space-y-0 > :not(template) ~ :not(template){
     --space-y-reverse: 0;
@@ -28073,6 +28254,158 @@ video {
 
   .sm\:delay-1000{
     transition-delay: 1000ms;
+  }
+
+  .sm\:animation-none{
+    animation-name: none;
+  }
+
+  .sm\:animation-spin{
+    animation-name: spin;
+    animation-duration: 1s;
+    animation-duration: var(--animation-duration);
+    animation-iteration-count: infinite;
+    animation-iteration-count: var(--animation-iteration-count);
+  }
+
+  .sm\:animation-jump{
+    animation-name: jump;
+    animation-duration: 1s;
+    animation-duration: var(--animation-duration);
+    animation-iteration-count: infinite;
+    animation-iteration-count: var(--animation-iteration-count);
+  }
+
+  .sm\:animation-0s{
+    --animation-duration: 0s;
+    animation-duration: 0s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .sm\:animation-1s{
+    --animation-duration: 1s;
+    animation-duration: 1s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .sm\:animation-2s{
+    --animation-duration: 2s;
+    animation-duration: 2s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .sm\:animation-3s{
+    --animation-duration: 3s;
+    animation-duration: 3s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .sm\:animation-4s{
+    --animation-duration: 4s;
+    animation-duration: 4s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .sm\:animation-5s{
+    --animation-duration: 5s;
+    animation-duration: 5s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .sm\:animation-linear{
+    animation-timing-function: linear;
+  }
+
+  .sm\:animation-ease{
+    animation-timing-function: ease;
+  }
+
+  .sm\:animation-ease-in{
+    animation-timing-function: ease-in;
+  }
+
+  .sm\:animation-ease-out{
+    animation-timing-function: ease-out;
+  }
+
+  .sm\:animation-ease-in-out{
+    animation-timing-function: ease-in-out;
+  }
+
+  .sm\:animation-delay-0s{
+    animation-delay: 0s;
+  }
+
+  .sm\:animation-delay-1s{
+    animation-delay: 1s;
+  }
+
+  .sm\:animation-delay-2s{
+    animation-delay: 2s;
+  }
+
+  .sm\:animation-delay-3s{
+    animation-delay: 3s;
+  }
+
+  .sm\:animation-delay-4s{
+    animation-delay: 4s;
+  }
+
+  .sm\:animation-delay-5s{
+    animation-delay: 5s;
+  }
+
+  .sm\:animation-once{
+    --animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    animation-iteration-count: var(--animation-iteration-count);
+  }
+
+  .sm\:animation-infinite{
+    --animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    animation-iteration-count: var(--animation-iteration-count);
+  }
+
+  .sm\:animation-normal{
+    animation-direction: normal;
+  }
+
+  .sm\:animation-reverse{
+    animation-direction: reverse;
+  }
+
+  .sm\:animation-alternate{
+    animation-direction: alternate;
+  }
+
+  .sm\:animation-alternate-reverse{
+    animation-direction: alternate-reverse;
+  }
+
+  .sm\:animation-fill-none{
+    animation-fill-mode: none;
+  }
+
+  .sm\:animation-fill-forwards{
+    animation-fill-mode: forwards;
+  }
+
+  .sm\:animation-fill-backwards{
+    animation-fill-mode: backwards;
+  }
+
+  .sm\:animation-fill-both{
+    animation-fill-mode: both;
+  }
+
+  .sm\:animation-running{
+    animation-play-state: running;
+  }
+
+  .sm\:animation-paused{
+    animation-play-state: paused;
   }
 }
 
@@ -41809,6 +42142,158 @@ video {
   .md\:delay-1000{
     transition-delay: 1000ms;
   }
+
+  .md\:animation-none{
+    animation-name: none;
+  }
+
+  .md\:animation-spin{
+    animation-name: spin;
+    animation-duration: 1s;
+    animation-duration: var(--animation-duration);
+    animation-iteration-count: infinite;
+    animation-iteration-count: var(--animation-iteration-count);
+  }
+
+  .md\:animation-jump{
+    animation-name: jump;
+    animation-duration: 1s;
+    animation-duration: var(--animation-duration);
+    animation-iteration-count: infinite;
+    animation-iteration-count: var(--animation-iteration-count);
+  }
+
+  .md\:animation-0s{
+    --animation-duration: 0s;
+    animation-duration: 0s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .md\:animation-1s{
+    --animation-duration: 1s;
+    animation-duration: 1s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .md\:animation-2s{
+    --animation-duration: 2s;
+    animation-duration: 2s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .md\:animation-3s{
+    --animation-duration: 3s;
+    animation-duration: 3s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .md\:animation-4s{
+    --animation-duration: 4s;
+    animation-duration: 4s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .md\:animation-5s{
+    --animation-duration: 5s;
+    animation-duration: 5s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .md\:animation-linear{
+    animation-timing-function: linear;
+  }
+
+  .md\:animation-ease{
+    animation-timing-function: ease;
+  }
+
+  .md\:animation-ease-in{
+    animation-timing-function: ease-in;
+  }
+
+  .md\:animation-ease-out{
+    animation-timing-function: ease-out;
+  }
+
+  .md\:animation-ease-in-out{
+    animation-timing-function: ease-in-out;
+  }
+
+  .md\:animation-delay-0s{
+    animation-delay: 0s;
+  }
+
+  .md\:animation-delay-1s{
+    animation-delay: 1s;
+  }
+
+  .md\:animation-delay-2s{
+    animation-delay: 2s;
+  }
+
+  .md\:animation-delay-3s{
+    animation-delay: 3s;
+  }
+
+  .md\:animation-delay-4s{
+    animation-delay: 4s;
+  }
+
+  .md\:animation-delay-5s{
+    animation-delay: 5s;
+  }
+
+  .md\:animation-once{
+    --animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    animation-iteration-count: var(--animation-iteration-count);
+  }
+
+  .md\:animation-infinite{
+    --animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    animation-iteration-count: var(--animation-iteration-count);
+  }
+
+  .md\:animation-normal{
+    animation-direction: normal;
+  }
+
+  .md\:animation-reverse{
+    animation-direction: reverse;
+  }
+
+  .md\:animation-alternate{
+    animation-direction: alternate;
+  }
+
+  .md\:animation-alternate-reverse{
+    animation-direction: alternate-reverse;
+  }
+
+  .md\:animation-fill-none{
+    animation-fill-mode: none;
+  }
+
+  .md\:animation-fill-forwards{
+    animation-fill-mode: forwards;
+  }
+
+  .md\:animation-fill-backwards{
+    animation-fill-mode: backwards;
+  }
+
+  .md\:animation-fill-both{
+    animation-fill-mode: both;
+  }
+
+  .md\:animation-running{
+    animation-play-state: running;
+  }
+
+  .md\:animation-paused{
+    animation-play-state: paused;
+  }
 }
 
 @media (min-width: 1024px){
@@ -55544,6 +56029,158 @@ video {
   .lg\:delay-1000{
     transition-delay: 1000ms;
   }
+
+  .lg\:animation-none{
+    animation-name: none;
+  }
+
+  .lg\:animation-spin{
+    animation-name: spin;
+    animation-duration: 1s;
+    animation-duration: var(--animation-duration);
+    animation-iteration-count: infinite;
+    animation-iteration-count: var(--animation-iteration-count);
+  }
+
+  .lg\:animation-jump{
+    animation-name: jump;
+    animation-duration: 1s;
+    animation-duration: var(--animation-duration);
+    animation-iteration-count: infinite;
+    animation-iteration-count: var(--animation-iteration-count);
+  }
+
+  .lg\:animation-0s{
+    --animation-duration: 0s;
+    animation-duration: 0s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .lg\:animation-1s{
+    --animation-duration: 1s;
+    animation-duration: 1s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .lg\:animation-2s{
+    --animation-duration: 2s;
+    animation-duration: 2s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .lg\:animation-3s{
+    --animation-duration: 3s;
+    animation-duration: 3s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .lg\:animation-4s{
+    --animation-duration: 4s;
+    animation-duration: 4s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .lg\:animation-5s{
+    --animation-duration: 5s;
+    animation-duration: 5s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .lg\:animation-linear{
+    animation-timing-function: linear;
+  }
+
+  .lg\:animation-ease{
+    animation-timing-function: ease;
+  }
+
+  .lg\:animation-ease-in{
+    animation-timing-function: ease-in;
+  }
+
+  .lg\:animation-ease-out{
+    animation-timing-function: ease-out;
+  }
+
+  .lg\:animation-ease-in-out{
+    animation-timing-function: ease-in-out;
+  }
+
+  .lg\:animation-delay-0s{
+    animation-delay: 0s;
+  }
+
+  .lg\:animation-delay-1s{
+    animation-delay: 1s;
+  }
+
+  .lg\:animation-delay-2s{
+    animation-delay: 2s;
+  }
+
+  .lg\:animation-delay-3s{
+    animation-delay: 3s;
+  }
+
+  .lg\:animation-delay-4s{
+    animation-delay: 4s;
+  }
+
+  .lg\:animation-delay-5s{
+    animation-delay: 5s;
+  }
+
+  .lg\:animation-once{
+    --animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    animation-iteration-count: var(--animation-iteration-count);
+  }
+
+  .lg\:animation-infinite{
+    --animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    animation-iteration-count: var(--animation-iteration-count);
+  }
+
+  .lg\:animation-normal{
+    animation-direction: normal;
+  }
+
+  .lg\:animation-reverse{
+    animation-direction: reverse;
+  }
+
+  .lg\:animation-alternate{
+    animation-direction: alternate;
+  }
+
+  .lg\:animation-alternate-reverse{
+    animation-direction: alternate-reverse;
+  }
+
+  .lg\:animation-fill-none{
+    animation-fill-mode: none;
+  }
+
+  .lg\:animation-fill-forwards{
+    animation-fill-mode: forwards;
+  }
+
+  .lg\:animation-fill-backwards{
+    animation-fill-mode: backwards;
+  }
+
+  .lg\:animation-fill-both{
+    animation-fill-mode: both;
+  }
+
+  .lg\:animation-running{
+    animation-play-state: running;
+  }
+
+  .lg\:animation-paused{
+    animation-play-state: paused;
+  }
 }
 
 @media (min-width: 1280px){
@@ -69278,5 +69915,157 @@ video {
 
   .xl\:delay-1000{
     transition-delay: 1000ms;
+  }
+
+  .xl\:animation-none{
+    animation-name: none;
+  }
+
+  .xl\:animation-spin{
+    animation-name: spin;
+    animation-duration: 1s;
+    animation-duration: var(--animation-duration);
+    animation-iteration-count: infinite;
+    animation-iteration-count: var(--animation-iteration-count);
+  }
+
+  .xl\:animation-jump{
+    animation-name: jump;
+    animation-duration: 1s;
+    animation-duration: var(--animation-duration);
+    animation-iteration-count: infinite;
+    animation-iteration-count: var(--animation-iteration-count);
+  }
+
+  .xl\:animation-0s{
+    --animation-duration: 0s;
+    animation-duration: 0s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .xl\:animation-1s{
+    --animation-duration: 1s;
+    animation-duration: 1s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .xl\:animation-2s{
+    --animation-duration: 2s;
+    animation-duration: 2s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .xl\:animation-3s{
+    --animation-duration: 3s;
+    animation-duration: 3s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .xl\:animation-4s{
+    --animation-duration: 4s;
+    animation-duration: 4s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .xl\:animation-5s{
+    --animation-duration: 5s;
+    animation-duration: 5s;
+    animation-duration: var(--animation-duration);
+  }
+
+  .xl\:animation-linear{
+    animation-timing-function: linear;
+  }
+
+  .xl\:animation-ease{
+    animation-timing-function: ease;
+  }
+
+  .xl\:animation-ease-in{
+    animation-timing-function: ease-in;
+  }
+
+  .xl\:animation-ease-out{
+    animation-timing-function: ease-out;
+  }
+
+  .xl\:animation-ease-in-out{
+    animation-timing-function: ease-in-out;
+  }
+
+  .xl\:animation-delay-0s{
+    animation-delay: 0s;
+  }
+
+  .xl\:animation-delay-1s{
+    animation-delay: 1s;
+  }
+
+  .xl\:animation-delay-2s{
+    animation-delay: 2s;
+  }
+
+  .xl\:animation-delay-3s{
+    animation-delay: 3s;
+  }
+
+  .xl\:animation-delay-4s{
+    animation-delay: 4s;
+  }
+
+  .xl\:animation-delay-5s{
+    animation-delay: 5s;
+  }
+
+  .xl\:animation-once{
+    --animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    animation-iteration-count: var(--animation-iteration-count);
+  }
+
+  .xl\:animation-infinite{
+    --animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    animation-iteration-count: var(--animation-iteration-count);
+  }
+
+  .xl\:animation-normal{
+    animation-direction: normal;
+  }
+
+  .xl\:animation-reverse{
+    animation-direction: reverse;
+  }
+
+  .xl\:animation-alternate{
+    animation-direction: alternate;
+  }
+
+  .xl\:animation-alternate-reverse{
+    animation-direction: alternate-reverse;
+  }
+
+  .xl\:animation-fill-none{
+    animation-fill-mode: none;
+  }
+
+  .xl\:animation-fill-forwards{
+    animation-fill-mode: forwards;
+  }
+
+  .xl\:animation-fill-backwards{
+    animation-fill-mode: backwards;
+  }
+
+  .xl\:animation-fill-both{
+    animation-fill-mode: both;
+  }
+
+  .xl\:animation-running{
+    animation-play-state: running;
+  }
+
+  .xl\:animation-paused{
+    animation-play-state: paused;
   }
 }
