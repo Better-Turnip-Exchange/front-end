@@ -46,15 +46,15 @@ const Select = ({ userName }) => {
   };
 
   /* Filters selected keywords for PUT request */
-  // const getSelectedKeyWords = keywords => {
-  //   const selected = [];
-  //   for (const word in keywords) {
-  //     if (keywords[word] === true) {
-  //       selected.push(word);
-  //     }
-  //   }
-  //   return selected;
-  // };
+  const getSelectedKeyWords = keywords => {
+    const selected = [];
+    for (const word in keywords) {
+      if (keywords[word] === true) {
+        selected.push(word);
+      }
+    }
+    return selected;
+  };
 
   const formatKeyword = keyword => {
     return keyword.charAt(0).toUpperCase() + keyword.slice(1);
@@ -62,7 +62,7 @@ const Select = ({ userName }) => {
   const renderKeywordList = keywords => {
     return Object.keys(keywords).map(keyword => (
       <button
-        class={`spin keyword-label rounded py-2 px-2 mr-2 shadow-md ${
+        class={`spin keyword-label rounded py-2 px-2 mr-2 shadow-md w-20 ${
           keywords[keyword]
             ? 'bg-orange-200 hover:shadow-lg'
             : 'bg-gray-100 hover:bg-gray-200 hover:shadow-lg'
@@ -109,17 +109,15 @@ const Select = ({ userName }) => {
   return (
     <div id='select-container' class='flex py-10 content-center justify-center'>
       <div id='select-wrapper'>
-        <div id='welcome-wrapper' class='text-center mb-12'>
+        <div id='welcome-wrapper' className='text-center mb-12 card'>
           <div class='title text-4xl'>Welcome!</div>
           <div id='welcome-message' class='text-lg'>
             Maybe a description of what this website does goes here?
           </div>
         </div>
-        <div id='keyword-wrapper'>
+        <div id='keyword-wrapper' className='card'>
           <div class='keyword-message mt-3 text-center'>
-            <h1 class='font-title font-bolder text-3xl py-1'>
-              Ignore Keywords
-            </h1>
+            <h1 class='title font-bolder text-3xl py-1'>Ignore Keywords</h1>
             <h5 class='py-1 text-xl'>
               We'll go ahead and ignore these keywords while finding islands for
               you. Feel free to remove any!
@@ -129,8 +127,8 @@ const Select = ({ userName }) => {
             {renderKeywordList(state.keywords)}
           </ul>
         </div>
-        <div id='price-wrapper' class='container text-center mt-4'>
-          <h1 class='font-title text-3xl font-bolder my-2'>How Many Bells?</h1>
+        <div id='price-wrapper' class='container text-center mt-4 card'>
+          <h1 class='title text-3xl font-bolder my-2'>How Many Bells?</h1>
           <input
             type='text'
             class='bg-white mb-2 py-2 px-2 shadow-sm focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg '
