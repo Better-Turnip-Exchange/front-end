@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { loadState, saveState } from '../libs/updateStorage'
 import axios from 'axios';
 
 const Select = ({ userName }) => {
@@ -19,11 +20,17 @@ const Select = ({ userName }) => {
   const [name, setName] = useState(initialState.name);
   const [keywords, setKeywords] = useState(initialState.keywords);
   const [price, setPrice] = useState(initialState.price);
+  const [state, setState] = useState(loadState() || initialState)
   const [userInfo, setUserInfo] = useState({});
 
   useEffect(() => {
-    getUser();
-  });
+    console.log(state)
+  }, [state]);
+
+
+  useEffect(() => {
+    saveState({ keywords, price })
+  }, [keywords, price])
 
   /* Event Calls */
   const onHandlePrice = e => {
@@ -36,7 +43,7 @@ const Select = ({ userName }) => {
   };
 
   /* Keywords */
-  const toggleKeyword = (key, bool = !keywords[key]) => {
+  const toggleKeyword = (key, bool = !state.keywords.key) => {
     console.log('Toggling keyword', key, 'to', bool);
     setKeywords(prevState => ({
       ...prevState,
@@ -60,25 +67,28 @@ const Select = ({ userName }) => {
     return selected;
   };
 
+  const formatKeyword = keyword => {
+    return keyword.charAt(0).toUpperCase() + keyword.slice(1);
+  };
   const renderKeywordList = keywords => {
 
     return Object.keys(keywords).map(keyword => (
       <button
-        class={`spin keyword-label rounded py-2 px-3 mr-2 shadow-md ${
-          keywords[keyword] ? 'bg-yellow-200 hover:shadow-lg' : 'bg-gray-100 hover:bg-yellow-200 hover:shadow-lg'
+        class={`spin keyword-label rounded py-2 px-2 mr-2 shadow-md ${
+          keywords[keyword] ? 'bg-orange-200 hover:shadow-lg' : 'bg-gray-100 hover:bg-gray-200 hover:shadow-lg'
           }`}
         id={keyword}
         onClick={!keywords[keyword] ? onToggleKeyword : null}
       >
         <a
           id={keyword}
-          class={!keywords[keyword] ? 'hidden' : null}
+          class={!keywords[keyword] ? 'hidden' : 'fill-current opacity-50 hover:opacity-100'}
           id={keyword}
           onClick={onToggleKeyword}
         >
           <FontAwesomeIcon icon={faTimesCircle} size='xs' />
         </a>
-        <span class={`keyword title-font ${keywords[keyword] ? 'ml-2' : null}`} id={keyword}>{keyword}</span>
+        <span class={`keyword title-font ${keywords[keyword] ? 'ml-1' : null}`} id={keyword}>{formatKeyword(keyword)}</span>
 
       </button>
     ))
@@ -88,8 +98,8 @@ const Select = ({ userName }) => {
   const putUser = async () => {
     const body = {
       villager_id: name,
-      keywords: getSelectedKeyWords(keywords),
-      price_threshold: price,
+      keywords: getSelectedKeyWords(state.keywords),
+      price_threshold: state.price,
     };
     try {
       const res = await axios.post('villager/', body);
@@ -113,15 +123,16 @@ const Select = ({ userName }) => {
   };
 
   return (
-    <div id='select-container' class='flex py-40 content-center justify-center'>
+    <div id='select-container' class='flex py-10 content-center justify-center'>
       <div id='select-wrapper'>
-
-        <div id='welcome-wrapper' class='text-center'>
-          <h3 class='font-title text-4xl'>
+        <div id='welcome-wrapper' class='text-center mb-12'>
+          <div class='font-title text-4xl'>
             Welcome, {userName.split(' ')[0]}!{' '}
-          </h3>
+          </div>
+          <div id='welcome-message' class='text-lg'>
+            Maybe a description of what this website does goes here?
+          </div>
         </div>
-
         <div id='keyword-wrapper'>
           <div class='keyword-message mt-3 text-center'>
             <h1 class='font-title font-bolder text-3xl py-1'>
@@ -133,7 +144,7 @@ const Select = ({ userName }) => {
               </h5>
           </div>
           <ul class='keyword-list py-1 flex items-center justify-center'>
-            {renderKeywordList(keywords)}
+            {renderKeywordList(state.keywords)}
           </ul>
         </div>
         <div id='price-wrapper' class='container text-center mt-4'>
@@ -142,20 +153,12 @@ const Select = ({ userName }) => {
             </h1>
           <input
             type='text'
-            class='bg-white mb-2 px-1 shadow-sm focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg '
-            value={price}
+            class='bg-white mb-2 py-2 px-2 shadow-sm focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg '
+            value={state.price}
             min='0'
             max='999'
             onChange={onHandlePrice}
           ></input>
-          <div id='update-button-wrapper' class='items-center my-1'>
-            <button
-              class='bg-green-300 rounded-lg py-3 px-8 shadow-md hover:bg-green-400 hover:shadow-lg'
-              onClick={putUser}
-            >
-              Update
-              </button>
-          </div>
         </div>
       </div>
     </div>

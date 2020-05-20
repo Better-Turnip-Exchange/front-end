@@ -1,6 +1,8 @@
 import React from 'react';
 
 const Splash = props => {
+  console.log(props)
+
   return (
     <div className='flex justify-center items-center mt-40'>
       <div
@@ -9,9 +11,9 @@ const Splash = props => {
       >
         <h1 class='title'>The</h1>
         <h1 class='title'>Better Turnip Exchange</h1>
-        <a role='button' class='btn btn-blue mt-4' href='/login'>
+        <button class='btn btn-blue hover: mt-4' onClick={() => props.setAuthenticated(true)}>
           Get Started
-        </a>
+        </button>
       </div>
     </div>
   );
