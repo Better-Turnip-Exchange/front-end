@@ -35,9 +35,19 @@
   outline: thick;
   outline-color: theme('colors.acYellow');
 }
-
 body {
   @apply bg-acGreen;
+  background-image: linear-gradient(
+    45deg,
+    #a4d4a4 10%,
+    #88c9a1 10%,
+    #88c9a1 50%,
+    #a4d4a4 50%,
+    #a4d4a4 60%,
+    #88c9a1 60%,
+    #88c9a1 100%
+  );
+  background-size: 35.36px 35.36px;
 }
 
 @tailwind utilities;

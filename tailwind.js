@@ -102,6 +102,13 @@ module.exports = {
       black: '#000',
       white: '#fff',
 
+      acGrass: {
+        main: '#88c9a1',
+        light: '#a4d2a3',
+        green: '#6fb88a',
+        blueish: '#6bb894',
+      },
+
       gray: {
         100: '#f7fafc',
         200: '#edf2f7',

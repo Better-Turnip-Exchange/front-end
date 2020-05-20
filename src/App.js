@@ -8,9 +8,12 @@ function App() {
     <div className='h-full'>
       <div
         id='navbar'
-        className='flex flex-wrap p-3 items-center border-b bg-acLight border-acYellow'
+        className='flex flex-wrap p-3 items-center bg-acLight border-b-4 border-acGrass-green'
       >
-        <a className='navbar-brand mb-0 h1 text-xl text-center' href='/'>
+        <a
+          className='navbar-brand mb-0 h1 text-xl text-center text-acBrown'
+          href='/'
+        >
           <span className='font-title font-extrabold'>The </span>Better Turnip
           Exchange
         </a>
