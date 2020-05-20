@@ -1,8 +1,6 @@
 import React from 'react';
 
 const Splash = props => {
-  console.log(props)
-
   return (
     <div className='flex justify-center items-center mt-40'>
       <div
