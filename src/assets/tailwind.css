@@ -11,7 +11,8 @@
 }
 
 .btn {
-  @apply rounded-lg;
+  /* @apply rounded-xl; */
+  border-radius: 1em;
   @apply shadow-md;
   @apply py-2;
   @apply px-8;

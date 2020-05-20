@@ -20,8 +20,8 @@ const Select = ({ userName }) => {
   const { keywords, price } = state;
 
   useEffect(() => {
-    saveState(state)
-  }, [state])
+    saveState(state);
+  }, [state]);
 
   /* Event Calls */
   const onHandlePrice = e => {
@@ -66,12 +66,11 @@ const Select = ({ userName }) => {
           keywords[keyword]
             ? 'bg-orange-200 hover:shadow-lg'
             : 'bg-gray-100 hover:bg-gray-200 hover:shadow-lg'
-          }`}
+        }`}
         id={keyword}
         onClick={!keywords[keyword] ? onToggleKeyword : null}
       >
         <a
-
           id={keyword}
           class={
             !keywords[keyword]
@@ -111,9 +110,7 @@ const Select = ({ userName }) => {
     <div id='select-container' class='flex py-10 content-center justify-center'>
       <div id='select-wrapper'>
         <div id='welcome-wrapper' class='text-center mb-12'>
-          <div class='font-title text-4xl'>
-            Welcome!
-          </div>
+          <div class='title text-4xl'>Welcome!</div>
           <div id='welcome-message' class='text-lg'>
             Maybe a description of what this website does goes here?
           </div>
