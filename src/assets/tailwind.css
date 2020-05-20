@@ -36,4 +36,8 @@
   outline-color: theme('colors.acYellow');
 }
 
+body {
+  @apply bg-acGreen;
+}
+
 @tailwind utilities;
