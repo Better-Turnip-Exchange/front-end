@@ -35,6 +35,15 @@
   outline: thick;
   outline-color: theme('colors.acYellow');
 }
+
+.card {
+  @apply bg-acLight;
+  /* @apply rounded-lg;  */
+  border-radius: 1em;
+  @apply shadow-xl;
+  @apply p-10;
+}
+
 body {
   @apply bg-acGreen;
   background-image: linear-gradient(
