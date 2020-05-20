@@ -18,8 +18,6 @@ const Select = ({ userName }) => {
   };
 
   const [name, setName] = useState(initialState.name);
-  const [keywords, setKeywords] = useState(initialState.keywords);
-  const [price, setPrice] = useState(initialState.price);
   const [state, setState] = useState(loadState() || initialState)
   const [userInfo, setUserInfo] = useState({});
 
@@ -29,12 +27,12 @@ const Select = ({ userName }) => {
 
 
   useEffect(() => {
-    saveState({ keywords, price })
-  }, [keywords, price])
+    saveState(state)
+  }, [state])
 
   /* Event Calls */
   const onHandlePrice = e => {
-    setPrice(e.target.value);
+    setState({ ...state, price: e.target.value });
   };
 
   const onToggleKeyword = e => {
@@ -45,6 +43,11 @@ const Select = ({ userName }) => {
   /* Keywords */
   const toggleKeyword = (key, bool = !state.keywords.key) => {
     console.log('Toggling keyword', key, 'to', bool);
+    setState(prevState => ({
+      
+    }))
+
+
     setKeywords(prevState => ({
       ...prevState,
       [key]: bool,
@@ -52,7 +55,7 @@ const Select = ({ userName }) => {
   };
 
   const adjustKeywords = userKeywords => {
-    Object.keys(keywords).forEach((word, i) => {
+    Object.keys(state.keywords).forEach((word, i) => {
       toggleKeyword(word, userKeywords.includes(word));
     });
   };
@@ -107,18 +110,6 @@ const Select = ({ userName }) => {
       console.log('putUser Success:', res.data);
     } catch (error) {
       console.error('putUser Error:', error);
-    }
-  };
-
-  const getUser = async () => {
-    console.log('getuser');
-    try {
-      const res = await axios.get(`villager/${name}/public`);
-      setUserInfo(res.data);
-      adjustKeywords(res.data.keywords);
-      setPrice(res.data.price_threshold);
-    } catch (error) {
-      console.log('getUser Error', error);
     }
   };
 

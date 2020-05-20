@@ -11,9 +11,9 @@ const Splash = props => {
       >
         <h1 class='title'>The</h1>
         <h1 class='title'>Better Turnip Exchange</h1>
-        <button class='btn btn-blue hover: mt-4' onClick={() => props.setAuthenticated(true)}>
+        <a class='btn btn-blue hover: mt-4' href='/find'>
           Get Started
-        </button>
+        </a>
       </div>
     </div>
   );
