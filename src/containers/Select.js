@@ -158,19 +158,16 @@ const Select = ({ userName }) => {
         data: { islands_visited },
       } = await axios.post(`/run?villager_id=${villager_id}`);
 
-      console.dir('POST /run', islands_visited);
       // Run notifications
-
-      let diff = Object.keys(openIslands).filter((island) =>
-        Object.keys(islands_visited).includes(island),
+      let diff = Object.keys(openIslands).filter(
+        (island) => !Object.keys(islands_visited).includes(island),
       );
-      if (diff.keys !== {}) {
+      if (diff.length != 0) {
         handleNotification();
       }
 
+      // Set data
       setOpenIslands(islands_visited);
-      console.log('Open Islands');
-      console.dir(openIslands);
     } catch (error) {
       console.error(error);
     }
