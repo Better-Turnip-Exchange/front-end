@@ -25,8 +25,8 @@
     "start": "REACT_APP_STAGE=dev npm run watch:css && react-scripts start",
     "build": "npm run build:css && react-scripts build",
     "predeploy": "REACT_APP_STAGE=dev npm run build",
-    "test": "jest --config ./jest.config.json",
-    "update-test":" npm test -- -u",
+    "test": "jest --config ./jest.config.json ",
+    "update-test": " npm test -- -u",
     "eject": "react-scripts eject",
     "build:css": "postcss src/assets/tailwind.css -o src/build.css",
     "watch:css": "postcss src/assets/tailwind.css -o src/build.css"
@@ -48,8 +48,11 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.7.6",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "jest": "^26.0.1",
     "postcss-cli": "^7.1.1",
     "tailwindcss": "^1.4.6"
   }
+  
 }
