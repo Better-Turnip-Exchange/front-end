@@ -60,7 +60,7 @@ const Select = ({ userName }) => {
     return keyword.charAt(0).toUpperCase() + keyword.slice(1);
   };
   const renderKeywordList = keywords => {
-    return Object.keys(keywords).map(keyword => (
+    return Object.keys(keywords).map((keyword,i) => (
       <button
         class={`spin keyword-label rounded py-2 px-2 mr-2 shadow-md w-20 ${
           keywords[keyword]
@@ -68,6 +68,7 @@ const Select = ({ userName }) => {
             : 'bg-gray-100 hover:bg-gray-200 hover:shadow-lg'
         }`}
         id={keyword}
+        key={i}
         onClick={!keywords[keyword] ? onToggleKeyword : null}
       >
         <a
@@ -77,7 +78,6 @@ const Select = ({ userName }) => {
               ? 'hidden'
               : 'fill-current opacity-50 hover:opacity-100'
           }
-          id={keyword}
           onClick={onToggleKeyword}
         >
           <FontAwesomeIcon icon={faTimesCircle} size='xs' />
@@ -123,7 +123,7 @@ const Select = ({ userName }) => {
               you. Feel free to remove any!
             </h5>
           </div>
-          <ul class='keyword-list py-1 flex items-center justify-center'>
+          <ul id='keyword-list' class='py-1 flex items-center justify-center'>
             {renderKeywordList(state.keywords)}
           </ul>
         </div>
@@ -135,6 +135,7 @@ const Select = ({ userName }) => {
             value={state.price}
             min='0'
             max='999'
+            id="price-input"
             onChange={onHandlePrice}
           ></input>
         </div>
