@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { loadState, saveState } from '../libs/updateStorage';
 import axios from 'axios';
+import useInterval from '../libs/useInterval';
 
 navigator.serviceWorker.register('notification-sw.js');
 
@@ -18,23 +19,27 @@ const Select = ({ userName }) => {
     },
     price: 500,
   };
+  const villager_id = 'test';
   const [state, setState] = useState(loadState() || initialState);
   const [openIslands, setOpenIslands] = useState({});
+  const [delay] = useState(7000);
+  const [isRunning, setIsRunning] = useState(false);
   const { keywords, price } = state;
 
   useEffect(() => {
     saveState(state);
+    if (isRunning) {
+      putUser();
+      postRun();
+    }
   }, [state]);
 
-  /* Event Calls */
-  const onHandlePrice = (e) => {
-    setState({ ...state, price: e.target.value });
-  };
-
-  const onToggleKeyword = (e) => {
-    e.preventDefault();
-    toggleKeyword(e.currentTarget.id);
-  };
+  useInterval(
+    () => {
+      postRun();
+    },
+    isRunning ? delay : null,
+  );
 
   /* Keywords */
   const toggleKeyword = (key, bool = !keywords[key]) => {
@@ -64,6 +69,7 @@ const Select = ({ userName }) => {
     return keyword.charAt(0).toUpperCase() + keyword.slice(1);
   };
 
+  /* Notifications */
   const handleNotification = async () => {
     // if ('serviceWorker' in navigator) {
     //   navigator.serviceWorker.register('./notification-sw.js');
@@ -78,6 +84,72 @@ const Select = ({ userName }) => {
     }
   };
 
+  /* Server calls */
+  const putUser = async () => {
+    const body = {
+      villager_id,
+      price_threshold: price,
+      keywords: getSelectedKeyWords(),
+      islands_visited: {},
+    };
+    try {
+      const res = await axios.post('/villager/', body);
+
+      console.log('putUser Success:', res.data);
+    } catch (error) {
+      console.error('putUser Error:', error);
+    }
+  };
+
+  const postRun = async () => {
+    // const config = {
+    //   params: {
+    //     villager_id,
+    //   },
+    // };
+    console.log('post run');
+    try {
+      const {
+        data: { islands_visited },
+      } = await axios.post(`/run?villager_id=${villager_id}`);
+
+      // Run notifications
+      let diff = Object.keys(openIslands).filter(
+        (island) => !Object.keys(islands_visited).includes(island),
+      );
+      if (diff.length != 0) {
+        handleNotification();
+      }
+
+      // Set data
+      setOpenIslands(islands_visited);
+    } catch (error) {
+      console.error('POST /run error:', error);
+      setIsRunning(false);
+    }
+  };
+
+  /* Event Calls */
+  const onHandlePrice = (e) => {
+    setState({ ...state, price: e.target.value });
+  };
+
+  const onToggleKeyword = (e) => {
+    e.preventDefault();
+    toggleKeyword(e.currentTarget.id);
+  };
+
+  const onRun = (e) => {
+    if (isRunning) {
+      console.log('Stopping run');
+      setIsRunning(false);
+    } else {
+      putUser();
+      setIsRunning(true);
+    }
+  };
+
+  /* render */
   const renderKeywordList = (keywords) => {
     return Object.keys(keywords).map((keyword) => (
       <button
@@ -128,56 +200,6 @@ const Select = ({ userName }) => {
     ));
   };
 
-  const villager_id = 'test';
-
-  /* Server calls */
-  const putUser = async () => {
-    const body = {
-      villager_id,
-      price_threshold: price,
-      keywords: getSelectedKeyWords(),
-      islands_visited: {},
-    };
-    try {
-      const res = await axios.post('/villager/', body);
-
-      console.log('putUser Success:', res.data);
-    } catch (error) {
-      console.error('putUser Error:', error);
-    }
-  };
-
-  const run = async () => {
-    // const config = {
-    //   params: {
-    //     villager_id,
-    //   },
-    // };
-    try {
-      const {
-        data: { islands_visited },
-      } = await axios.post(`/run?villager_id=${villager_id}`);
-
-      // Run notifications
-      let diff = Object.keys(openIslands).filter(
-        (island) => !Object.keys(islands_visited).includes(island),
-      );
-      if (diff.length != 0) {
-        handleNotification();
-      }
-
-      // Set data
-      setOpenIslands(islands_visited);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const onStart = (e) => {
-    console.log(e);
-    putUser();
-  };
-
   return (
     <div
       id="select-container"
@@ -189,11 +211,8 @@ const Select = ({ userName }) => {
         <div id="welcome-message" class="text-lg">
           Maybe a description of what this website does goes here?
         </div>
-        <button className="btn btn-blue mt-10" onClick={(e) => onStart(e)}>
-          Go!
-        </button>
-        <button className="btn btn-blue mt-10" onClick={(e) => run()}>
-          Run
+        <button className="btn btn-blue mt-10" onClick={(e) => onRun(e)}>
+          {isRunning ? 'Stop' : 'Go!'}
         </button>
       </div>
       <div id="keyword-wrapper" className="card">

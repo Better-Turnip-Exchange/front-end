@@ -12,7 +12,7 @@
 ---
 
 - Run `npm install` to install all dependencies.
-- Optional: Run 'export HTTPS=true' on Mac or Linux to enable HTTPS and notifications
+- Optional: Run `export HTTPS=true` on Mac or Linux to enable HTTPS and notifications
 - Run `npm start` to spin up development server.
 - Go to `localhost:3000`.
 
