@@ -1,6 +1,4 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { loadState, saveState } from '../libs/updateStorage';
 import axios from 'axios';
 import useInterval from '../libs/useInterval';
@@ -145,6 +143,7 @@ const Select = ({ userName }) => {
       setIsRunning(false);
     } else {
       putUser();
+      postRun();
       setIsRunning(true);
     }
   };
@@ -153,28 +152,26 @@ const Select = ({ userName }) => {
   const renderKeywordList = (keywords) => {
     return Object.keys(keywords).map((keyword) => (
       <button
-        class={`spin keyword-label rounded py-2 px-2 mr-2 shadow-md w-20 ${
+        className={`spin keyword-label rounded py-2 px-2 mr-2 shadow-md w-20 ${
           keywords[keyword]
             ? 'bg-orange-200 hover:shadow-lg'
             : 'bg-gray-100 hover:bg-gray-200 hover:shadow-lg'
         }`}
         id={keyword}
-        onClick={!keywords[keyword] ? onToggleKeyword : null}
+        onClick={(e) => onToggleKeyword(e)}
       >
         <a
           id={keyword}
-          class={
+          className={
             !keywords[keyword]
               ? 'hidden'
               : 'fill-current opacity-50 hover:opacity-100'
           }
           id={keyword}
           onClick={onToggleKeyword}
-        >
-          <FontAwesomeIcon icon={faTimesCircle} size="xs" />
-        </a>
+        ></a>
         <span
-          class={`keyword title-font ${keywords[keyword] ? 'ml-1' : null}`}
+          className={`keyword title-font ${keywords[keyword] ? 'ml-1' : null}`}
           id={keyword}
         >
           {formatKeyword(keyword)}
@@ -193,6 +190,7 @@ const Select = ({ userName }) => {
           className="text-acBlue hover:text-acGreen"
           href={openIslands[island]}
           target="_blank"
+          rel="noopener noreferrer"
         >
           {openIslands[island]}
         </a>
@@ -203,12 +201,12 @@ const Select = ({ userName }) => {
   return (
     <div
       id="select-container"
-      class="flex flex-col py-10 justify-center container max-w-screen-lg"
+      className="flex flex-col py-10 justify-center container max-w-screen-lg"
     >
       <div id="welcome-wrapper" className="text-center mb-12 card">
         <button onClick={handleNotification}>Notif?</button>
-        <div class="title text-4xl">Welcome!</div>
-        <div id="welcome-message" class="text-lg">
+        <div className="title text-4xl">Welcome!</div>
+        <div id="welcome-message" className="text-lg">
           Maybe a description of what this website does goes here?
         </div>
         <button className="btn btn-blue mt-10" onClick={(e) => onRun(e)}>
@@ -216,29 +214,29 @@ const Select = ({ userName }) => {
         </button>
       </div>
       <div id="keyword-wrapper" className="card">
-        <div class="keyword-message mt-3 text-center">
-          <h1 class="title font-bolder text-3xl py-1">Ignore Keywords</h1>
-          <h5 class="py-1 text-xl">
+        <div className="keyword-message mt-3 text-center">
+          <h1 className="title font-bolder text-3xl py-1">Ignore Keywords</h1>
+          <h5 className="py-1 text-xl">
             We'll go ahead and ignore these keywords while finding islands for
             you. Feel free to remove any!
           </h5>
         </div>
-        <ul class="keyword-list py-1 flex items-center justify-center">
+        <ul className="keyword-list py-1 flex items-center justify-center">
           {renderKeywordList(state.keywords)}
         </ul>
       </div>
-      <div id="price-wrapper" class="container text-center mt-4 card">
-        <h1 class="title text-3xl font-bolder my-2">How Many Bells?</h1>
+      <div id="price-wrapper" className="container text-center mt-4 card">
+        <h1 className="title text-3xl font-bolder my-2">How Many Bells?</h1>
         <input
           type="text"
-          class="bg-white mb-2 py-2 px-2 shadow-sm focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg "
+          className="bg-white mb-2 py-2 px-2 shadow-sm focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg "
           value={state.price}
           min="0"
           max="999"
           onChange={onHandlePrice}
         ></input>
       </div>
-      <div id="island-wrapper" class="container mt-8 p-0">
+      <div id="island-wrapper" className="container mt-8 p-0">
         <div className="flex flex-wrap justify-between">
           {renderIslands(openIslands)}
         </div>
