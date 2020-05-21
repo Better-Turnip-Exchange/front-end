@@ -4,6 +4,8 @@ import Routes from './Routes';
 import './build.css';
 
 function App() {
+  navigator.serviceWorker.register('./notification-sw.js');
+
   return (
     <div className='h-full'>
       <div

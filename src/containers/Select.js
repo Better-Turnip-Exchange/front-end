@@ -4,6 +4,8 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { loadState, saveState } from '../libs/updateStorage';
 import axios from 'axios';
 
+navigator.serviceWorker.register('notification-sw.js');
+
 const Select = ({ userName }) => {
   const initialState = {
     name: userName,
@@ -59,6 +61,21 @@ const Select = ({ userName }) => {
   const formatKeyword = keyword => {
     return keyword.charAt(0).toUpperCase() + keyword.slice(1);
   };
+
+  const handleNotification = async Island => {
+    // if ('serviceWorker' in navigator) {
+    //   navigator.serviceWorker.register('./notification-sw.js');
+    // }
+    let permission = await Notification.requestPermission();
+    if (permission === 'granted') {
+      let msg = await navigator.serviceWorker.ready;
+      msg.showNotification('New Island Found!', {
+        body: 'We found a new Island for you, come check it out!',
+        icon: 'https://duckduckgo.com/i/9da3dfa1.png',
+      });
+    }
+  };
+
   const renderKeywordList = keywords => {
     return Object.keys(keywords).map(keyword => (
       <button
@@ -106,14 +123,23 @@ const Select = ({ userName }) => {
     }
   };
 
+  const onStart = e => {
+    console.log(e);
+    putUser();
+  };
+
   return (
     <div id='select-container' class='flex py-10 content-center justify-center'>
       <div id='select-wrapper'>
         <div id='welcome-wrapper' className='text-center mb-12 card'>
+          <button onClick={handleNotification}>Notif?</button>
           <div class='title text-4xl'>Welcome!</div>
           <div id='welcome-message' class='text-lg'>
             Maybe a description of what this website does goes here?
           </div>
+          <button className='btn btn-blue mt-10' onClick={e => onStart(e)}>
+            Start
+          </button>
         </div>
         <div id='keyword-wrapper' className='card'>
           <div class='keyword-message mt-3 text-center'>
