@@ -60,28 +60,17 @@ const Select = ({ userName }) => {
     return keyword.charAt(0).toUpperCase() + keyword.slice(1);
   };
   const renderKeywordList = keywords => {
-    return Object.keys(keywords).map((keyword,i) => (
+    return Object.keys(keywords).map((keyword, i) => (
       <button
         class={`spin keyword-label rounded py-2 px-2 mr-2 shadow-md w-20 ${
           keywords[keyword]
             ? 'bg-orange-200 hover:shadow-lg'
             : 'bg-gray-100 hover:bg-gray-200 hover:shadow-lg'
-        }`}
+          }`}
         id={keyword}
         key={i}
-        onClick={!keywords[keyword] ? onToggleKeyword : null}
+        onClick={onToggleKeyword}
       >
-        <a
-          id={keyword}
-          class={
-            !keywords[keyword]
-              ? 'hidden'
-              : 'fill-current opacity-50 hover:opacity-100'
-          }
-          onClick={onToggleKeyword}
-        >
-          <FontAwesomeIcon icon={faTimesCircle} size='xs' />
-        </a>
         <span
           class={`keyword title-font ${keywords[keyword] ? 'ml-1' : null}`}
           id={keyword}
