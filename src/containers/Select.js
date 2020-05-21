@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { loadState, saveState } from '../libs/updateStorage';
@@ -19,6 +19,7 @@ const Select = ({ userName }) => {
     price: 500,
   };
   const [state, setState] = useState(loadState() || initialState);
+  const [openIslands, setOpenIslands] = useState({});
   const { keywords, price } = state;
 
   useEffect(() => {
@@ -26,11 +27,11 @@ const Select = ({ userName }) => {
   }, [state]);
 
   /* Event Calls */
-  const onHandlePrice = e => {
+  const onHandlePrice = (e) => {
     setState({ ...state, price: e.target.value });
   };
 
-  const onToggleKeyword = e => {
+  const onToggleKeyword = (e) => {
     e.preventDefault();
     toggleKeyword(e.currentTarget.id);
   };
@@ -38,7 +39,7 @@ const Select = ({ userName }) => {
   /* Keywords */
   const toggleKeyword = (key, bool = !keywords[key]) => {
     console.log('Toggling keyword', key, 'to', bool);
-    setState(prevState => ({
+    setState((prevState) => ({
       ...prevState,
       keywords: {
         ...prevState.keywords,
@@ -48,21 +49,22 @@ const Select = ({ userName }) => {
   };
 
   /* Filters selected keywords for PUT request */
-  const getSelectedKeyWords = keywords => {
-    const selected = [];
+  const getSelectedKeyWords = () => {
+    let selected = [];
     for (const word in keywords) {
       if (keywords[word] === true) {
         selected.push(word);
       }
     }
+    console.log(selected);
     return selected;
   };
 
-  const formatKeyword = keyword => {
+  const formatKeyword = (keyword) => {
     return keyword.charAt(0).toUpperCase() + keyword.slice(1);
   };
 
-  const handleNotification = async Island => {
+  const handleNotification = async () => {
     // if ('serviceWorker' in navigator) {
     //   navigator.serviceWorker.register('./notification-sw.js');
     // }
@@ -76,8 +78,8 @@ const Select = ({ userName }) => {
     }
   };
 
-  const renderKeywordList = keywords => {
-    return Object.keys(keywords).map(keyword => (
+  const renderKeywordList = (keywords) => {
+    return Object.keys(keywords).map((keyword) => (
       <button
         class={`spin keyword-label rounded py-2 px-2 mr-2 shadow-md w-20 ${
           keywords[keyword]
@@ -97,7 +99,7 @@ const Select = ({ userName }) => {
           id={keyword}
           onClick={onToggleKeyword}
         >
-          <FontAwesomeIcon icon={faTimesCircle} size='xs' />
+          <FontAwesomeIcon icon={faTimesCircle} size="xs" />
         </a>
         <span
           class={`keyword title-font ${keywords[keyword] ? 'ml-1' : null}`}
@@ -109,13 +111,35 @@ const Select = ({ userName }) => {
     ));
   };
 
+  const renderIslands = (openIslands) => {
+    if (openIslands === {}) {
+      return <Fragment />;
+    }
+    return Object.keys(openIslands).map((island) => (
+      <div className="card w-56 my-2">
+        <a
+          className="text-acBlue hover:text-acGreen"
+          href={openIslands[island]}
+          target="_blank"
+        >
+          {openIslands[island]}
+        </a>
+      </div>
+    ));
+  };
+
+  const villager_id = 'test';
+
   /* Server calls */
   const putUser = async () => {
     const body = {
-      state,
+      villager_id,
+      price_threshold: price,
+      keywords: getSelectedKeyWords(),
+      islands_visited: {},
     };
     try {
-      const res = await axios.post('villager/', body);
+      const res = await axios.post('/villager/', body);
 
       console.log('putUser Success:', res.data);
     } catch (error) {
@@ -123,46 +147,84 @@ const Select = ({ userName }) => {
     }
   };
 
-  const onStart = e => {
+  const run = async () => {
+    // const config = {
+    //   params: {
+    //     villager_id,
+    //   },
+    // };
+    try {
+      const {
+        data: { islands_visited },
+      } = await axios.post(`/run?villager_id=${villager_id}`);
+
+      console.dir('POST /run', islands_visited);
+      // Run notifications
+
+      let diff = Object.keys(openIslands).filter((island) =>
+        Object.keys(islands_visited).includes(island),
+      );
+      if (diff.keys !== {}) {
+        handleNotification();
+      }
+
+      setOpenIslands(islands_visited);
+      console.log('Open Islands');
+      console.dir(openIslands);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onStart = (e) => {
     console.log(e);
     putUser();
   };
 
   return (
-    <div id='select-container' class='flex py-10 content-center justify-center'>
-      <div id='select-wrapper'>
-        <div id='welcome-wrapper' className='text-center mb-12 card'>
-          <button onClick={handleNotification}>Notif?</button>
-          <div class='title text-4xl'>Welcome!</div>
-          <div id='welcome-message' class='text-lg'>
-            Maybe a description of what this website does goes here?
-          </div>
-          <button className='btn btn-blue mt-10' onClick={e => onStart(e)}>
-            Start
-          </button>
+    <div
+      id="select-container"
+      class="flex flex-col py-10 justify-center container max-w-screen-lg"
+    >
+      <div id="welcome-wrapper" className="text-center mb-12 card">
+        <button onClick={handleNotification}>Notif?</button>
+        <div class="title text-4xl">Welcome!</div>
+        <div id="welcome-message" class="text-lg">
+          Maybe a description of what this website does goes here?
         </div>
-        <div id='keyword-wrapper' className='card'>
-          <div class='keyword-message mt-3 text-center'>
-            <h1 class='title font-bolder text-3xl py-1'>Ignore Keywords</h1>
-            <h5 class='py-1 text-xl'>
-              We'll go ahead and ignore these keywords while finding islands for
-              you. Feel free to remove any!
-            </h5>
-          </div>
-          <ul class='keyword-list py-1 flex items-center justify-center'>
-            {renderKeywordList(state.keywords)}
-          </ul>
+        <button className="btn btn-blue mt-10" onClick={(e) => onStart(e)}>
+          Go!
+        </button>
+        <button className="btn btn-blue mt-10" onClick={(e) => run()}>
+          Run
+        </button>
+      </div>
+      <div id="keyword-wrapper" className="card">
+        <div class="keyword-message mt-3 text-center">
+          <h1 class="title font-bolder text-3xl py-1">Ignore Keywords</h1>
+          <h5 class="py-1 text-xl">
+            We'll go ahead and ignore these keywords while finding islands for
+            you. Feel free to remove any!
+          </h5>
         </div>
-        <div id='price-wrapper' class='container text-center mt-4 card'>
-          <h1 class='title text-3xl font-bolder my-2'>How Many Bells?</h1>
-          <input
-            type='text'
-            class='bg-white mb-2 py-2 px-2 shadow-sm focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg '
-            value={state.price}
-            min='0'
-            max='999'
-            onChange={onHandlePrice}
-          ></input>
+        <ul class="keyword-list py-1 flex items-center justify-center">
+          {renderKeywordList(state.keywords)}
+        </ul>
+      </div>
+      <div id="price-wrapper" class="container text-center mt-4 card">
+        <h1 class="title text-3xl font-bolder my-2">How Many Bells?</h1>
+        <input
+          type="text"
+          class="bg-white mb-2 py-2 px-2 shadow-sm focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg "
+          value={state.price}
+          min="0"
+          max="999"
+          onChange={onHandlePrice}
+        ></input>
+      </div>
+      <div id="island-wrapper" class="container mt-8 p-0">
+        <div className="flex flex-wrap justify-between">
+          {renderIslands(openIslands)}
         </div>
       </div>
     </div>
