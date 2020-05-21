@@ -23,3 +23,8 @@
 - Run `make build` to setup API.
 - Run `make run`.
 - API will be running on port `8080`.
+
+### Testing
+---
+- Run `npm test`
+- After deliberately changing the UI, run `npm run update-test`

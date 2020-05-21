@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Routes from './Routes';
-import './build.css';
+import './assets/build.css';
 
 function App() {
   navigator.serviceWorker.register('./notification-sw.js');
