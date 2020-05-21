@@ -6,3 +6,4 @@ test('Select renders', () => {
     const tree = renderer.create(<Select />).toJSON();
     expect(tree).toMatchSnapshot();
 })
+

@@ -26,6 +26,7 @@
     "build": "npm run build:css && react-scripts build",
     "predeploy": "REACT_APP_STAGE=dev npm run build",
     "test": "jest --config ./jest.config.json",
+    "update-test":" npm test -- -u",
     "eject": "react-scripts eject",
     "build:css": "postcss src/assets/tailwind.css -o src/build.css",
     "watch:css": "postcss src/assets/tailwind.css -o src/build.css"
