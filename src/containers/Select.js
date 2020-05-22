@@ -1,7 +1,8 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, useRef, Fragment } from 'react';
 import { loadState, saveState } from '../libs/updateStorage';
 import axios from 'axios';
 import useInterval from '../libs/useInterval';
+import useScroll from '../libs/scroll';
 
 navigator.serviceWorker.register('notification-sw.js');
 
@@ -20,10 +21,11 @@ const Select = ({ userName }) => {
   const villager_id = 'test';
   const [state, setState] = useState(loadState() || initialState);
   const [openIslands, setOpenIslands] = useState({});
+  const [areIslands, setAreIslands] = useState(false)
+  const [scroll, elementRef] = useScroll();
   const [delay] = useState(7000);
   const [isRunning, setIsRunning] = useState(false);
   const { keywords, price } = state;
-
   useEffect(() => {
     saveState(state);
     if (isRunning) {
@@ -32,6 +34,9 @@ const Select = ({ userName }) => {
     }
   }, [state]);
 
+  useEffect(() => {
+    scroll()
+  }, [areIslands, scroll]);
   useInterval(
     () => {
       postRun();
@@ -111,11 +116,12 @@ const Select = ({ userName }) => {
         data: { islands_visited },
       } = await axios.post(`/run?villager_id=${villager_id}`);
 
+      console.log(islands_visited)
       // Run notifications
       let diff = Object.keys(openIslands).filter(
         (island) => !Object.keys(islands_visited).includes(island),
       );
-      if (diff.length != 0) {
+      if (diff.length !== 0) {
         handleNotification();
       }
 
@@ -145,8 +151,14 @@ const Select = ({ userName }) => {
       putUser();
       postRun();
       setIsRunning(true);
+
+
     }
   };
+
+  const onClick = (e) => {
+    onRun(e);
+  }
 
   /* render */
   const renderKeywordList = (keywords) => {
@@ -200,7 +212,7 @@ const Select = ({ userName }) => {
         <div id="welcome-message" className="text-lg">
           Maybe a description of what this website does goes here?
         </div>
-        <button className="btn btn-blue mt-10" onClick={(e) => onRun(e)}>
+        <button className="btn btn-blue mt-10" onClick={onClick}>
           {isRunning ? 'Stop' : 'Go!'}
         </button>
       </div>
@@ -228,7 +240,7 @@ const Select = ({ userName }) => {
           onChange={onHandlePrice}
         ></input>
       </div>
-      <div id="island-wrapper" className="container mt-8 p-0">
+      <div id="island-wrapper" ref={elementRef} className="container mt-8 p-0">
         <div className="flex flex-wrap justify-between">
           {renderIslands(openIslands)}
         </div>
