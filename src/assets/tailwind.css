@@ -43,6 +43,15 @@
   @apply shadow-xl;
   @apply p-10;
 }
+.island_card {
+  @apply bg-acLight;
+  /* @apply rounded-lg;  */
+  @apply flex;
+  @apply flex-wrap;
+  @apply px-6;
+  border-radius: 1em;
+  @apply shadow-xl;
+}
 
 body {
   @apply bg-acGreen;

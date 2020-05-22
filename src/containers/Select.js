@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef, Fragment } from 'react';
 import { loadState, saveState } from '../libs/updateStorage';
 import axios from 'axios';
 import useInterval from '../libs/useInterval';
-import useScroll from '../libs/scroll';
-
 navigator.serviceWorker.register('notification-sw.js');
 
 const Select = ({ userName }) => {
@@ -21,11 +19,10 @@ const Select = ({ userName }) => {
   const villager_id = 'test';
   const [state, setState] = useState(loadState() || initialState);
   const [openIslands, setOpenIslands] = useState({});
-  const [areIslands, setAreIslands] = useState(false)
-  const [scroll, elementRef] = useScroll();
   const [delay] = useState(7000);
   const [isRunning, setIsRunning] = useState(false);
   const { keywords, price } = state;
+
   useEffect(() => {
     saveState(state);
     if (isRunning) {
@@ -34,9 +31,6 @@ const Select = ({ userName }) => {
     }
   }, [state]);
 
-  useEffect(() => {
-    scroll()
-  }, [areIslands, scroll]);
   useInterval(
     () => {
       postRun();
@@ -143,7 +137,7 @@ const Select = ({ userName }) => {
     toggleKeyword(e.currentTarget.id);
   };
 
-  const onRun = (e) => {
+  const onRun = () => {
     if (isRunning) {
       console.log('Stopping run');
       setIsRunning(false);
@@ -151,13 +145,13 @@ const Select = ({ userName }) => {
       putUser();
       postRun();
       setIsRunning(true);
-
-
     }
+
   };
 
-  const onClick = (e) => {
-    onRun(e);
+  const handleClick = () => {
+    onRun();
+
   }
 
   /* render */
@@ -187,15 +181,16 @@ const Select = ({ userName }) => {
     if (openIslands === {}) {
       return <Fragment />;
     }
+    console.log(openIslands);
     return Object.keys(openIslands).map((island) => (
-      <div className="card w-56 my-2">
+      <div className="island-card">
         <a
           className="text-acBlue hover:text-acGreen"
-          href={openIslands[island]}
+          href={openIslands[island].link}
           target="_blank"
           rel="noopener noreferrer"
         >
-          {openIslands[island]}
+          {openIslands[island].description}
         </a>
       </div>
     ));
@@ -212,7 +207,7 @@ const Select = ({ userName }) => {
         <div id="welcome-message" className="text-lg">
           Maybe a description of what this website does goes here?
         </div>
-        <button className="btn btn-blue mt-10" onClick={onClick}>
+        <button className="btn btn-blue mt-10" onClick={handleClick}>
           {isRunning ? 'Stop' : 'Go!'}
         </button>
       </div>
@@ -240,7 +235,7 @@ const Select = ({ userName }) => {
           onChange={onHandlePrice}
         ></input>
       </div>
-      <div id="island-wrapper" ref={elementRef} className="container mt-8 p-0">
+      <div id="island-wrapper" name='islands' className="container mt-8 p-0">
         <div className="flex flex-wrap justify-between">
           {renderIslands(openIslands)}
         </div>
