@@ -223,10 +223,10 @@ const Select = ({ userName }) => {
             </div>
           </div>
           <div id='island-subinfo' class="py-2 block">
-            <p class="py-1 px-2 text-sm text-acBrown font-title">Price: {openIslands[island].turnipPrice} Bells </p>
+            <p class="py-1 px-2 text-md text-acBrown font-title">Price: {openIslands[island].turnipPrice} Bells </p>
             <div className="py-1 px-2">
               <div className='flex justify-between'>
-                <p class='text-sm text-acBrown font-title'>Current Queue</p>
+                <p class='text-md text-acBrown font-title'>Current Queue</p>
                 <p class='py-1 text-xs text-gray-700'>{openIslands[island].queued}</p>
               </div>
               <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-acYellow">
