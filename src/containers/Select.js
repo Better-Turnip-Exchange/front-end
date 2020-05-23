@@ -183,6 +183,13 @@ const Select = ({ userName }) => {
 
 
   }
+  const getCapacity = (island) => {
+    const current = island.queued.split('/')[0];
+    const max = island.maxQueue;
+    const capactiy = Number(current) / max;
+    return String(capactiy * 100) + '%';
+
+  }
 
   const renderIslands = (openIslands) => {
     if (openIslands === {}) {
@@ -190,21 +197,34 @@ const Select = ({ userName }) => {
     }
     console.log(openIslands);
     return Object.keys(openIslands).map((island) => (
-      <div class="w-full lg:w-1/3 md:mx-2 mb-4 m-10 md:mb-0 bg-acLight">
-        <div class="rounded-lg overflow-hidden shadow relative">
-          <div class="p-4 h-auto md:h-40 lg:h-48">
-            <a href="#" class="block text-blue-500 hover:text-blue-600 font-semibold mb-2 text-lg md:text-base lg:text-lg">
-              {openIslands[island].name}
-            </a>
+      <div class="w-full lg:w-1/3 md:mx-2 my-16 bg-acLight shadow-md">
+        <div class="rounded-lg shadow relative block px-4 py-6">
+          <a href={openIslands[island].link} class="block font-semibold mb-2 text-xl font-title text-acBrown">
+            {openIslands[island].name}
+          </a>
+          <p class='block font-normal text-md text-acBrown'>
+            {openIslands[island].creationTime}
+          </p>
+          <div class="p-2 h-auto md:h-40 overflow-y-scroll lg:h-48 border-b">
             <div class="text-gray-600 text-sm leading-relaxed block md:text-xs lg:text-sm">
+              {openIslands[island].description}
             </div>
-            <div class="relative mt-2 lg:absolute bottom-0 mb-4 md:hidden lg:block">
-              <a class="inline bg-gray-300 py-1 px-2 rounded-full text-xs lowercase text-gray-700" href="#">#something</a>
-              <a class="inline bg-gray-300 py-1 px-2 rounded-full text-xs lowercase text-gray-700" href="#">#sky</a>
+          </div>
+          <div class="mt-2 mb-4 block">
+            <p class="py-1 px-2 text-sm text-acBrown font-title">Price: {openIslands[island].turnipPrice} Bells </p>
+            <div className="py-1 px-2">
+              <div className='flex justify-between'>
+                <p class='text-sm text-acBrown font-title'>Current Queue</p>
+                <p class='py-1 text-xs text-gray-700'>{openIslands[island].queued}</p>
+              </div>
+              <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-acYellow">
+                <div style={{ width: getCapacity(openIslands[island]) }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-acGreen"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
     ));
   };
 
@@ -247,8 +267,8 @@ const Select = ({ userName }) => {
           onChange={onHandlePrice}
         ></input>
       </div>
-      <div id="island-wrapper" name='islands' className="container mt-8 p-0">
-        <div className="block lg:flex flex-wrap justify-between">
+      <div id="island-wrapper" name='islands' className="container px-4">
+        <div class="block md:flex  flex-wrap justify-between md:-mx-2 lg:-mx-4 ">
           {renderIslands(openIslands)}
         </div>
       </div>
