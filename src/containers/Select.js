@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, Fragment } from 'react';
 import { loadState, saveState } from '../libs/updateStorage';
+import moment from 'moment';
 import axios from 'axios';
 import useInterval from '../libs/useInterval';
 navigator.serviceWorker.register('notification-sw.js');
@@ -183,11 +184,15 @@ const Select = ({ userName }) => {
 
 
   }
-  const getCapacity = (island) => {
+  const formatCapacity = (island) => {
     const current = island.queued.split('/')[0];
     const max = island.maxQueue;
     const capactiy = Number(current) / max;
     return String(capactiy * 100) + '%';
+
+  }
+  const formatTime = (time) => {
+    return (moment.utc(time, "YYYY-MM-DD hh:mm:ss").fromNow());
 
   }
 
@@ -195,22 +200,21 @@ const Select = ({ userName }) => {
     if (openIslands === {}) {
       return <Fragment />;
     }
-    console.log(openIslands);
     return Object.keys(openIslands).map((island) => (
-      <div class="w-full lg:w-1/3 md:mx-2 my-16 bg-acLight shadow-md">
-        <div class="rounded-lg shadow relative block px-4 py-6">
-          <a href={openIslands[island].link} class="block font-semibold mb-2 text-xl font-title text-acBrown">
+      <div class="w-full lg:w-1/3 md:mx-2 my-12 rounded-lg bg-acLight shadow-md">
+        <div id='island-main-info' class="shadow relative block px-4 py-6">
+          <a href={openIslands[island].link} class="block font-semibold mb-2 px-2 text-3xl font-title text-acBrown">
             {openIslands[island].name}
           </a>
-          <p class='block font-normal text-md text-acBrown'>
-            {openIslands[island].creationTime}
+          <p class='block font-normal text-md px-2 text-acBrown'>
+            {formatTime(openIslands[island].creationTime)}
           </p>
           <div class="p-2 h-auto md:h-40 overflow-y-scroll lg:h-48 border-b">
-            <div class="text-gray-600 text-sm leading-relaxed block md:text-xs lg:text-sm">
+            <div class="text-acBrown font-semibold text-md leading-relaxed block">
               {openIslands[island].description}
             </div>
           </div>
-          <div class="mt-2 mb-4 block">
+          <div id='island-subinfo' class="py-2 block">
             <p class="py-1 px-2 text-sm text-acBrown font-title">Price: {openIslands[island].turnipPrice} Bells </p>
             <div className="py-1 px-2">
               <div className='flex justify-between'>
@@ -218,7 +222,7 @@ const Select = ({ userName }) => {
                 <p class='py-1 text-xs text-gray-700'>{openIslands[island].queued}</p>
               </div>
               <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-acYellow">
-                <div style={{ width: getCapacity(openIslands[island]) }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-acGreen"></div>
+                <div style={{ width: formatCapacity(openIslands[island]) }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-acGreen"></div>
               </div>
             </div>
           </div>
