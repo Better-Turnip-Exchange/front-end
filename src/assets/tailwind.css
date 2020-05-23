@@ -53,6 +53,10 @@
   @apply shadow-xl;
 }
 
+#nav_title:hover #the {
+  @apply rotate-0;
+}
+
 body {
   @apply bg-acGreen;
   background-image: linear-gradient(

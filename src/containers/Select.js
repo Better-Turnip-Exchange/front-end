@@ -3,6 +3,9 @@ import { loadState, saveState } from '../libs/updateStorage';
 import moment from 'moment';
 import axios from 'axios';
 import useInterval from '../libs/useInterval';
+import { v4 as uuid } from 'uuid';
+import NookAlert from './NookAlert';
+
 navigator.serviceWorker.register('notification-sw.js');
 
 const Select = ({ userName }) => {
@@ -22,6 +25,8 @@ const Select = ({ userName }) => {
   const [openIslands, setOpenIslands] = useState({});
   const [delay] = useState(7000);
   const [isRunning, setIsRunning] = useState(false);
+  const [alertType, setAlertType] = useState('DEFUALT');
+
   const { keywords, price } = state;
 
   useEffect(() => {
@@ -116,13 +121,16 @@ const Select = ({ userName }) => {
       let diff = Object.keys(openIslands).filter(
         (island) => !Object.keys(islands_visited).includes(island),
       );
-      if (diff.length !== 0) {
+      if (diff.length != 0) {
+        console.log('New Islands!');
+        setAlertType('NEW_ISLANDS');
         handleNotification();
       }
 
       // Set data
       setOpenIslands(islands_visited);
     } catch (error) {
+      setAlertType('ERROR');
       console.error('POST /run error:', error);
       setIsRunning(false);
     }
@@ -233,50 +241,54 @@ const Select = ({ userName }) => {
   };
 
   return (
-    <div
-      id="select-container"
-      className="flex flex-col py-10 justify-center container max-w-screen-lg"
-    >
-      <div id="welcome-wrapper" className="text-center mb-12 card">
-        <button onClick={handleNotification}>Notif?</button>
-        <div className="title text-4xl">Welcome!</div>
-        <div id="welcome-message" className="text-lg">
-          Maybe a description of what this website does goes here?
+    <Fragment>
+      <NookAlert alertType={alertType} />
+
+      <div
+        id="select-container"
+        className="flex flex-col py-10 justify-center container max-w-screen-lg"
+      >
+        <div id="welcome-wrapper" className="text-center mb-12 card">
+          <button onClick={handleNotification}>Notif?</button>
+          <div className="title text-4xl">Welcome!</div>
+          <div id="welcome-message" className="text-lg">
+            Maybe a description of what this website does goes here?
+          </div>
+          <button className="btn btn-blue mt-10" onClick={(e) => onRun(e)}>
+            {isRunning ? 'Stop' : 'Go!'}
+          </button>
         </div>
-        <button className="btn btn-blue mt-10" onClick={handleClick}>
-          {isRunning ? 'Stop' : 'Go!'}
-        </button>
-      </div>
-      <div id="keyword-wrapper" className="card">
-        <div className="keyword-message mt-3 text-center">
-          <h1 className="title font-bolder text-3xl py-1">Ignore Keywords</h1>
-          <h5 className="py-1 text-xl">
-            We'll go ahead and ignore these keywords while finding islands for
-            you. Feel free to remove any!
+        <div id="keyword-wrapper" className="card">
+          <div className="keyword-message mt-3 text-center">
+            <h1 className="title font-bolder text-3xl py-1">Ignore Keywords</h1>
+            <h5 className="py-1 text-xl">
+              We'll go ahead and ignore these keywords while finding islands for
+              you. Feel free to remove any!
           </h5>
+          </div>
+          <ul className="keyword-list py-1 flex items-center justify-center">
+            {renderKeywordList(state.keywords)}
+          </ul>
         </div>
-        <ul className="keyword-list py-1 flex items-center justify-center">
-          {renderKeywordList(state.keywords)}
-        </ul>
-      </div>
-      <div id="price-wrapper" className="container text-center mt-4 card">
-        <h1 className="title text-3xl font-bolder my-2">How Many Bells?</h1>
-        <input
-          id='price-input'
-          type="text"
-          className="bg-white mb-2 py-2 px-2 shadow-sm focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg "
-          value={state.price}
-          min="0"
-          max="999"
-          onChange={onHandlePrice}
-        ></input>
-      </div>
-      <div id="island-wrapper" name='islands' className="container px-4">
-        <div class="block md:flex  flex-wrap justify-between md:-mx-2 lg:-mx-4 ">
-          {renderIslands(openIslands)}
+        <div id="price-wrapper" className="container text-center mt-4 card">
+          <h1 className="title text-3xl font-bolder my-2">How Many Bells?</h1>
+          <input
+            id='price-input'
+            type="text"
+            className="bg-white mb-2 py-2 px-2 shadow-sm focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg "
+            value={state.price}
+            min="0"
+            max="999"
+            onChange={onHandlePrice}
+          ></input>
+        </div>
+        <div id="island-wrapper" name='islands' className="container px-4">
+          <div class="block md:flex  flex-wrap justify-between md:-mx-2 lg:-mx-4 ">
+            {renderIslands(openIslands)}
+          </div>
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 export default Select;
