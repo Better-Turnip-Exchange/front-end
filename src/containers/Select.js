@@ -176,6 +176,13 @@ const Select = ({ userName }) => {
       </button>
     ));
   };
+  const renderStars = (stars) => {
+    for (const i in stars) {
+      return <h1>i</h1>
+    }
+
+
+  }
 
   const renderIslands = (openIslands) => {
     if (openIslands === {}) {
@@ -183,15 +190,20 @@ const Select = ({ userName }) => {
     }
     console.log(openIslands);
     return Object.keys(openIslands).map((island) => (
-      <div className="island-card">
-        <a
-          className="text-acBlue hover:text-acGreen"
-          href={openIslands[island].link}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {openIslands[island].description}
-        </a>
+      <div class="w-full lg:w-1/3 md:mx-2 mb-4 m-10 md:mb-0 bg-acLight">
+        <div class="rounded-lg overflow-hidden shadow relative">
+          <div class="p-4 h-auto md:h-40 lg:h-48">
+            <a href="#" class="block text-blue-500 hover:text-blue-600 font-semibold mb-2 text-lg md:text-base lg:text-lg">
+              {openIslands[island].name}
+            </a>
+            <div class="text-gray-600 text-sm leading-relaxed block md:text-xs lg:text-sm">
+            </div>
+            <div class="relative mt-2 lg:absolute bottom-0 mb-4 md:hidden lg:block">
+              <a class="inline bg-gray-300 py-1 px-2 rounded-full text-xs lowercase text-gray-700" href="#">#something</a>
+              <a class="inline bg-gray-300 py-1 px-2 rounded-full text-xs lowercase text-gray-700" href="#">#sky</a>
+            </div>
+          </div>
+        </div>
       </div>
     ));
   };
@@ -236,7 +248,7 @@ const Select = ({ userName }) => {
         ></input>
       </div>
       <div id="island-wrapper" name='islands' className="container mt-8 p-0">
-        <div className="flex flex-wrap justify-between">
+        <div className="block lg:flex flex-wrap justify-between">
           {renderIslands(openIslands)}
         </div>
       </div>
