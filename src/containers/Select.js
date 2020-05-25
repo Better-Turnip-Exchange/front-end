@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, Fragment } from 'react';
 import { loadState, saveState } from '../libs/updateStorage';
 import axios from 'axios';
 import useInterval from '../libs/useInterval';
-import { initialState, getSelectedKeyWords, formatKeyword, renderIslands, handleNotification } from '../libs/selectLib';
+import { initialState, getSelectedKeyWords, formatKeyword, renderIslands, handleNotification, sortIslands } from '../libs/selectLib';
 import { v4 as uuid } from 'uuid';
 import NookAlert from './NookAlert';
 
@@ -13,6 +13,7 @@ const Select = () => {
   const villager_id = 'test';
   const [state, setState] = useState(loadState() || initialState);
   const [openIslands, setOpenIslands] = useState({});
+  const [displayIslands, setDisplayIslands] = useState([]);
   const [delay] = useState(7000);
   const [isRunning, setIsRunning] = useState(false);
   const [alertType, setAlertType] = useState('DEFUALT');
@@ -87,7 +88,9 @@ const Select = () => {
         handleNotification();
       }
       // Set data
+      var sortedIslands = sortIslands(Object.values(openIslands));
       setOpenIslands(islands_visited);
+      setDisplayIslands(sortedIslands);
     } catch (error) {
       setAlertType('ERROR');
       console.error('POST /run error:', error.msg);
@@ -186,7 +189,7 @@ const Select = () => {
         </div>
         <div id="island-wrapper" name='islands' className="container px-4">
           <div class="block md:flex  flex-wrap justify-between md:-mx-2 lg:-mx-4 ">
-            {renderIslands(openIslands)}
+            {renderIslands(displayIslands)}
           </div>
         </div>
       </div>

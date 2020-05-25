@@ -37,37 +37,44 @@ export const formatCapacity = (island) => {
 
 }
 export const formatTime = (time) => {
-    return (moment.utc(time, "YYYY-MM-DD hh:mm:ss").fromNow());
+    let localTime = moment(time).utc(true).format('YYYY-MM-DD hh:mm')
+    return moment(localTime).calendar();
+}
+export const sortIslands = (islands) => {
+    let sortedIslands = islands.sort(function (a, b) {
+        return moment(b.creationTime).utc(true) - moment(a.creationTime).utc(true);
+    })
+    return sortedIslands;
 }
 
 /* Island Renderer */
 export const renderIslands = (openIslands) => {
-    if (openIslands === {}) {
+    if (openIslands === []) {
         return <Fragment />;
     }
-    return Object.keys(openIslands).map((island) => (
+    return openIslands.map((island) => (
         <div class="w-full lg:w-1/3 md:mx-2 my-12 rounded-lg bg-acLight shadow-md">
             <div id='island-main-info' class="shadow relative block px-4 py-6">
-                <a href={openIslands[island].link} class="block font-semibold mb-2 px-2 text-3xl font-title text-acBrown">
-                    {openIslands[island].name}
+                <a href={island.link} class="block font-semibold mb-2 px-2 text-3xl font-title text-acBrown">
+                    {island.name}
                 </a>
                 <p class='block font-normal text-md px-2 text-acBrown'>
-                    {formatTime(openIslands[island].creationTime)}
+                    {formatTime(island.creationTime)}
                 </p>
                 <div class="p-2 h-auto md:h-40 overflow-y-scroll lg:h-48 border-b">
                     <div class="text-acBrown font-semibold text-md leading-relaxed block">
-                        {openIslands[island].description}
+                        {island.description}
                     </div>
                 </div>
                 <div id='island-subinfo' class="py-2 block">
-                    <p class="py-1 px-2 text-md text-acBrown font-title">Price: {openIslands[island].turnipPrice} Bells </p>
+                    <p class="py-1 px-2 text-md text-acBrown font-title">Price: {island.turnipPrice} Bells </p>
                     <div className="py-1 px-2">
                         <div className='flex justify-between'>
                             <p class='text-md text-acBrown font-title'>Current Queue</p>
-                            <p class='py-1 text-xs text-gray-700'>{openIslands[island].queued}</p>
+                            <p class='py-1 text-xs text-gray-700'>{island.queued}</p>
                         </div>
                         <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-acYellow">
-                            <div style={{ width: formatCapacity(openIslands[island]) }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-acGreen"></div>
+                            <div style={{ width: formatCapacity(island) }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-acGreen"></div>
                         </div>
                     </div>
                 </div>
