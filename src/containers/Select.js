@@ -2,14 +2,21 @@ import React, { useState, useEffect, useRef, Fragment } from 'react';
 import { loadState, saveState } from '../libs/updateStorage';
 import axios from 'axios';
 import useInterval from '../libs/useInterval';
-import { initialState, getSelectedKeyWords, formatKeyword, renderIslands, handleNotification, sortIslands } from '../libs/selectLib';
-import { v4 as uuid } from 'uuid';
+import {
+  initialState,
+  getSelectedKeyWords,
+  formatKeyword,
+  renderIslands,
+  handleNotification,
+  sortIslands,
+} from '../libs/selectLib';
+
 import NookAlert from './NookAlert';
+import Islands from './Islands';
 
 navigator.serviceWorker.register('notification-sw.js');
 
 const Select = () => {
-
   const villager_id = 'test';
   const [state, setState] = useState(loadState() || initialState);
   const [openIslands, setOpenIslands] = useState({});
@@ -46,8 +53,6 @@ const Select = () => {
     }));
   };
 
-
-
   /* Server calls */
   const putUser = async () => {
     const body = {
@@ -66,18 +71,13 @@ const Select = () => {
   };
 
   const postRun = async () => {
-    // const config = {
-    //   params: {
-    //     villager_id,
-    //   },
-    // };
     console.log('Post on /Run started');
     try {
       const {
         data: { islands_visited },
       } = await axios.post(`/run?villager_id=${villager_id}`);
 
-      console.log(islands_visited)
+      console.log(islands_visited);
       // Run notifications
       let diff = Object.keys(openIslands).filter(
         (island) => !Object.keys(islands_visited).includes(island),
@@ -98,7 +98,6 @@ const Select = () => {
     }
   };
 
-
   /* Event Calls */
   const onHandlePrice = (e) => {
     setState({ ...state, price: e.target.value });
@@ -118,9 +117,7 @@ const Select = () => {
       postRun();
       setIsRunning(true);
     }
-
   };
-
 
   /* Render Keywords */
   const renderKeywordList = (keywords) => {
@@ -130,7 +127,7 @@ const Select = () => {
           keywords[keyword]
             ? 'bg-orange-200 hover:shadow-lg'
             : 'bg-gray-100 hover:bg-gray-200 hover:shadow-lg'
-          }`}
+        }`}
         id={keyword}
         key={i}
         onClick={onToggleKeyword}
@@ -169,7 +166,7 @@ const Select = () => {
             <h5 className="py-1 text-xl">
               We'll go ahead and ignore these keywords while finding islands for
               you. Feel free to remove any!
-          </h5>
+            </h5>
           </div>
           <ul className="keyword-list py-1 flex items-center justify-center">
             {renderKeywordList(state.keywords)}
@@ -178,7 +175,7 @@ const Select = () => {
         <div id="price-wrapper" className="container text-center mt-4 card">
           <h1 className="title text-3xl font-bolder my-2">How Many Bells?</h1>
           <input
-            id='price-input'
+            id="price-input"
             type="text"
             className="bg-white mb-2 py-2 px-2 shadow-sm focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg "
             value={state.price}
@@ -187,9 +184,9 @@ const Select = () => {
             onChange={onHandlePrice}
           ></input>
         </div>
-        <div id="island-wrapper" name='islands' className="container px-4">
+        <div id="island-wrapper" name="islands" className="container px-4">
           <div class="block md:flex  flex-wrap justify-between md:-mx-2 lg:-mx-4 ">
-            {renderIslands(displayIslands)}
+            <Islands islands={displayIslands} />
           </div>
         </div>
       </div>
