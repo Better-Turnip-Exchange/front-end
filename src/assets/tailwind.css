@@ -68,8 +68,9 @@
 
 .chat-bubble {
   @apply bg-acLight;
-  @apply rounded-full;
+  @apply rounded-lg;
   @apply p-2;
+  @apply font-body;
   overflow-wrap: break-word;
   width: 10em;
 }

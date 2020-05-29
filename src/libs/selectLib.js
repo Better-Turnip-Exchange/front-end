@@ -60,3 +60,17 @@ export const handleNotification = async () => {
     });
   }
 };
+
+export const handleNotificationTest = async () => {
+  // if ('serviceWorker' in navigator) {
+  //   navigator.serviceWorker.register('./notification-sw.js');
+  // }
+  let permission = await Notification.requestPermission();
+  if (permission === 'granted') {
+    let msg = await navigator.serviceWorker.ready;
+    msg.showNotification('Oh, Looks like notifications are working', {
+      body: 'Now I can spam the bottom right of your screen, hehe',
+      icon: 'https://utahstories.com/wp-content/uploads/2016/02/raccoon1.png',
+    });
+  }
+};
