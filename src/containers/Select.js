@@ -156,7 +156,6 @@ const Select = () => {
         className="flex flex-col py-10 justify-center container max-w-screen-lg"
       >
         <div id="welcome-wrapper" className="text-center mb-12 card">
-          <button onClick={handleNotification}>Notif?</button>
           <div className="title text-4xl">Welcome!</div>
           <div id="welcome-message" className="text-lg">
             Maybe a description of what this website does goes here?
