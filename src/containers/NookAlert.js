@@ -16,8 +16,11 @@ const NookAlert = ({ alertType }) => {
   };
 
   return (
-    <div>
-      <h1>{alert_mesage()}</h1>
+    <div id="nook_alert">
+      <div className="chat-bubble ml-3">
+        <h1>{alert_mesage()}</h1>
+      </div>
+      <div id="raccoon"></div>
     </div>
   );
 };
