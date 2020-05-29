@@ -10,7 +10,7 @@ import {
   handleNotification,
   sortIslands,
 } from '../libs/selectLib';
-
+import { v4 as uuid } from 'uuid';
 import NookAlert from './NookAlert';
 import Islands from './Islands';
 
@@ -71,6 +71,11 @@ const Select = () => {
   };
 
   const postRun = async () => {
+    // const config = {
+    //   params: {
+    //     villager_id,
+    //   },
+    // };
     console.log('Post on /Run started');
     try {
       const {
@@ -151,6 +156,7 @@ const Select = () => {
         className="flex flex-col py-10 justify-center container max-w-screen-lg"
       >
         <div id="welcome-wrapper" className="text-center mb-12 card">
+          <button onClick={handleNotification}>Notif?</button>
           <div className="title text-4xl">Welcome!</div>
           <div id="welcome-message" className="text-lg">
             Maybe a description of what this website does goes here?

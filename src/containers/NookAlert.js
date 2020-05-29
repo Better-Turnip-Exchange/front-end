@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './NookAlert.css';
+
+import { CSSTransition } from 'react-transition-group';
 
 import { handleNotificationTest } from '../libs/selectLib';
 
@@ -18,11 +21,15 @@ const NookAlert = ({ alertType }) => {
   };
 
   return (
-    <div id="nook_alert">
-      <div className="chat-bubble ml-3">
-        <h1>{alert_mesage()}</h1>
-      </div>
-      <div id="raccoon" onClick={handleNotificationTest}></div>
+    <div>
+      <CSSTransition in={true} classNames="nook" appear={true} timeout={5000}>
+        <div id="nook_alert">
+          <div className="chat-bubble ml-3">
+            <h1>{alert_mesage()}</h1>
+          </div>
+          <div id="raccoon" onClick={handleNotificationTest}></div>
+        </div>
+      </CSSTransition>
     </div>
   );
 };
