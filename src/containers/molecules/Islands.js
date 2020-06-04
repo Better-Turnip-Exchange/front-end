@@ -7,13 +7,13 @@ const Islands = ({ islands }) => {
     <Fragment>
       {islands.map((island) => (
         <div
-          class="w-full xl:w-1/4  md:mx-1 my-12 rounded-lg bg-acLight shadow-md"
+          class="w-full  rounded-lg bg-acLight shadow-md"
           key={uuid()}
         >
           <div id="island-main-info" class="shadow relative block px-4 py-6">
             <a
               href={island.link}
-              class="block font-semibold mb-2 px-2 text-3xl font-title text-acBrown"
+              class="block font-semibold mb-2 px-2 text-3xl overflow-x-scroll font-title text-acBrown"
             >
               {island.name}
             </a>

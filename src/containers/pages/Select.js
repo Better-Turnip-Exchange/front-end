@@ -133,7 +133,7 @@ const Select = () => {
           keywords[keyword]
             ? 'bg-orange-200 hover:shadow-lg'
             : 'bg-gray-100 hover:bg-gray-200 hover:shadow-lg'
-        }`}
+          }`}
         id={keyword}
         key={i}
         onClick={onToggleKeyword}
@@ -154,7 +154,7 @@ const Select = () => {
 
       <div
         id="select-container"
-        className="flex flex-col py-10 justify-center container max-w-screen-lg"
+        className="flex flex-col py-4 justify-center container max-w-screen-lg"
       >
         <div id="welcome-wrapper" className="text-center card">
           <div className="title text-4xl">Welcome!</div>
@@ -189,8 +189,8 @@ const Select = () => {
             onChange={onHandlePrice}
           ></input>
         </div>
-        <div id="island-wrapper" name="islands" className="mt-4">
-          <div class="block md:flex flex-wrap justify-between">
+        <div id="island-wrapper" name="islands" className="mt-8">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 justify-between">
             <Islands islands={displayIslands} />
           </div>
         </div>
