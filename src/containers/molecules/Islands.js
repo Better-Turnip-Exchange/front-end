@@ -25,8 +25,8 @@ const Islands = ({ islands }) => {
                 {island.description}
               </div>
             </div>
-            <div id="island-subinfo" class="py-2 block">
-              <p class="py-1 px-2 text-md text-acBrown font-title">
+            <div id="island-subinfo" class="py-1 block">
+              <p class="py-1 mt-1 px-2 text-md text-acBrown font-title">
                 Price: {island.turnipPrice} Bells{' '}
               </p>
               <div className="py-1 px-2">
@@ -34,7 +34,7 @@ const Islands = ({ islands }) => {
                   <p class="text-md text-acBrown font-title">Current Queue</p>
                   <p class="py-1 text-xs text-gray-700">{island.queued}</p>
                 </div>
-                <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-acYellow">
+                <div className="overflow-hidden h-2 text-xs flex rounded bg-acYellow">
                   <div
                     style={{ width: formatCapacity(island) }}
                     className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-acGreen"
