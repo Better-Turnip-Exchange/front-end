@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
-import { formatTime, formatCapacity } from '../../libs/selectLib';
+import { formatTime, formatCapacity, renderRating } from '../../libs/selectLib';
 import { v4 as uuid } from 'uuid';
+
+
 
 const Islands = ({ islands }) => {
   return (
@@ -16,6 +18,9 @@ const Islands = ({ islands }) => {
               {island.name}
             </a>
             <p class="block font-normal text-md px-2 text-acBrown">
+              {renderRating(island.rating)}
+            </p>
+            <p class="block font-normal text-md px-2 text-acBrown">
               {formatTime(island.creationTime)}
             </p>
             <div class="p-2 h-auto md:h-40 overflow-y-scroll lg:h-48 border-b">
@@ -23,8 +28,8 @@ const Islands = ({ islands }) => {
                 {island.description}
               </div>
             </div>
-            <div id="island-subinfo" class="py-2 block">
-              <p class="py-1 px-2 text-md text-acBrown font-title">
+            <div id="island-subinfo" class="py-1 block">
+              <p class="py-1 mt-1 px-2 text-md text-acBrown font-title">
                 Price: {island.turnipPrice} Bells{' '}
               </p>
               <div className="py-1 px-2">
@@ -32,7 +37,7 @@ const Islands = ({ islands }) => {
                   <p class="text-md text-acBrown font-title">Current Queue</p>
                   <p class="py-1 text-xs text-gray-700">{island.queued}</p>
                 </div>
-                <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-acYellow">
+                <div className="overflow-hidden h-2 text-xs flex rounded bg-acYellow">
                   <div
                     style={{ width: formatCapacity(island) }}
                     className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-acGreen"
