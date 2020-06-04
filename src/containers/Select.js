@@ -10,7 +10,7 @@ import {
   handleNotification,
   sortIslands,
 } from '../libs/selectLib';
-
+import { v4 as uuid } from 'uuid';
 import NookAlert from './NookAlert';
 import Islands from './Islands';
 
@@ -115,9 +115,9 @@ const Select = () => {
 
   const onRun = () => {
     if (isRunning) {
+      console.log('Stopping run');
       setIsRunning(false);
     } else {
-      setAlertType('STARTING_RUN');
       putUser();
       postRun();
       setIsRunning(true);
@@ -132,7 +132,7 @@ const Select = () => {
           keywords[keyword]
             ? 'bg-orange-200 hover:shadow-lg'
             : 'bg-gray-100 hover:bg-gray-200 hover:shadow-lg'
-        }`}
+          }`}
         id={keyword}
         key={i}
         onClick={onToggleKeyword}
@@ -188,12 +188,13 @@ const Select = () => {
             onChange={onHandlePrice}
           ></input>
         </div>
-        <div id="island-wrapper" name="islands" className="container px-4">
-          <div class="block md:flex  flex-wrap justify-between md:-mx-2 lg:-mx-4 ">
-            <Islands islands={displayIslands} />
-          </div>
+      </div>
+      <div id="island-wrapper" name="islands" className="px-10 lg:px-16 xl:px-26">
+        <div class="block md:flex  flex-wrap justify-between md:-mx-2 lg:-mx-4 ">
+          <Islands islands={displayIslands} />
         </div>
       </div>
+
     </Fragment>
   );
 };
