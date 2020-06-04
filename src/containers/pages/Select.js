@@ -156,7 +156,7 @@ const Select = () => {
         id="select-container"
         className="flex flex-col py-10 justify-center container max-w-screen-lg"
       >
-        <div id="welcome-wrapper" className="text-center mb-12 card">
+        <div id="welcome-wrapper" className="text-center card">
           <div className="title text-4xl">Welcome!</div>
           <div id="welcome-message" className="text-lg">
             Maybe a description of what this website does goes here?
@@ -165,7 +165,7 @@ const Select = () => {
             {isRunning ? 'Stop' : 'Go!'}
           </button>
         </div>
-        <div id="keyword-wrapper" className="card">
+        <div id="keyword-wrapper" className="card mt-4">
           <div className="keyword-message mt-3 text-center">
             <h1 className="title font-bolder text-3xl py-1">Ignore Keywords</h1>
             <h5 className="py-1 text-xl">

@@ -54,16 +54,6 @@ h3 {
   @apply p-10;
 }
 
-.island_card {
-  @apply bg-acLight;
-  /* @apply rounded-lg;  */
-  @apply flex;
-  @apply flex-wrap;
-  @apply px-6;
-  border-radius: 1em;
-  @apply shadow-xl;
-}
-
 .chat-bubble {
   @apply bg-acLight;
   @apply rounded-lg;
