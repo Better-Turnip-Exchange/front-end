@@ -177,7 +177,7 @@ const Select = () => {
             {renderKeywordList(state.keywords)}
           </ul>
         </div>
-        <div id="price-wrapper" className="container text-center mt-4 card">
+        <div id="price-wrapper" className="text-center mt-4 card">
           <h1 className="title text-3xl font-bolder my-2">How Many Bells?</h1>
           <input
             id="price-input"
@@ -189,14 +189,10 @@ const Select = () => {
             onChange={onHandlePrice}
           ></input>
         </div>
-      </div>
-      <div
-        id="island-wrapper"
-        name="islands"
-        className="px-10 lg:px-16 xl:px-26"
-      >
-        <div class="block md:flex  flex-wrap justify-between md:-mx-2 lg:-mx-4 ">
-          <Islands islands={displayIslands} />
+        <div id="island-wrapper" name="islands" className="mt-4">
+          <div class="block md:flex flex-wrap justify-between">
+            <Islands islands={displayIslands} />
+          </div>
         </div>
       </div>
     </Fragment>

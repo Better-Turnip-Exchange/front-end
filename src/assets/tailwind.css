@@ -5,6 +5,7 @@
 body {
   @apply font-body;
 }
+
 h1,
 h2,
 h3 {
@@ -52,6 +53,7 @@ h3 {
   @apply shadow-xl;
   @apply p-10;
 }
+
 .island_card {
   @apply bg-acLight;
   /* @apply rounded-lg;  */
