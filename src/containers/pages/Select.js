@@ -156,7 +156,7 @@ const Select = () => {
         id="select-container"
         className="flex flex-col py-4 justify-center container max-w-screen-lg"
       >
-        <div id="welcome-wrapper" className="text-center card">
+        <div id="welcome-wrapper" className="text-center card py-6">
           <div className="title text-4xl">Welcome!</div>
           <div id="welcome-message" className="text-lg">
             Maybe a description of what this website does goes here?
