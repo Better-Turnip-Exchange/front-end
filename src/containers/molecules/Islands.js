@@ -7,7 +7,7 @@ const Islands = ({ islands }) => {
     <Fragment>
       {islands.map((island) => (
         <div
-          class="w-full lg:w-1/3 md:mx-2 my-12 rounded-lg bg-acLight shadow-md"
+          class="w-full xl:w-1/4  md:mx-1 my-12 rounded-lg bg-acLight shadow-md"
           key={uuid()}
         >
           <div id="island-main-info" class="shadow relative block px-4 py-6">
