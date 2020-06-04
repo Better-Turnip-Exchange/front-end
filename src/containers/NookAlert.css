@@ -1,6 +1,6 @@
 @keyframes popin {
   0% {
-    bottom: -30em;
+    bottom: -50em;
   }
 
   100% {
@@ -8,22 +8,51 @@
   }
 }
 
-.nook-appear {
-  animation: popin 5s ease-in;
+.nook-appear,
+.nook-enter {
+  bottom: -50em;
 }
 
-.nook-appear.nook-appear-active {
-  opacity: 1;
-  transition: opacity 3000ms ease-in;
-}
+.nook-appear-active,
+.nook-enter-active {
+  animation-name: popin;
 
-#nook_alert {
-  position: fixed;
+  animation-timing-function: ease-in-out;
   bottom: 0;
-  left: 0;
+}
+.nook-appear-active {
+  animation-duration: 5s;
+}
+.nook-enter-active {
+  animation-duration: 2500ms;
 }
 
-#nook_alert #raccoon {
+.nook-enter-done {
+  bottom: 0;
+}
+
+.nook-exit {
+  bottom: 0;
+}
+
+.nook-exit-active {
+  animation-name: popin;
+  animation-duration: 5s;
+  animation-timing-function: ease-in-out;
+  animation-direction: reverse;
+}
+
+.nook-exit-done {
+  bottom: -50em !important;
+}
+
+.nook {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+
+.nook #raccoon {
   background-image: url(../assets/raccoon.png);
   background-size: 10em;
   width: 10em;

@@ -10,7 +10,7 @@ import {
   handleNotification,
   sortIslands,
 } from '../libs/selectLib';
-import { v4 as uuid } from 'uuid';
+
 import NookAlert from './NookAlert';
 import Islands from './Islands';
 
@@ -115,9 +115,9 @@ const Select = () => {
 
   const onRun = () => {
     if (isRunning) {
-      console.log('Stopping run');
       setIsRunning(false);
     } else {
+      setAlertType('STARTING_RUN');
       putUser();
       postRun();
       setIsRunning(true);
