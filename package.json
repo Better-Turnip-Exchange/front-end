@@ -24,14 +24,15 @@
     "uuid": "^8.1.0"
   },
   "scripts": {
-    "start": "npm run watch:css && react-scripts start",
+    "start": "run-p watch:css start:react",
     "build": "npm run build:css && react-scripts build",
+    "start:react": "react-scripts start",
     "predeploy": "REACT_APP_STAGE=dev npm run build",
     "test": "jest --config ./jest.config.json ",
     "update-test": " npm test -- -u",
     "eject": "react-scripts eject",
     "build:css": "postcss src/assets/tailwind.css -o src/assets/build.css",
-    "watch:css": "postcss src/assets/tailwind.css -o src/assets/build.css"
+    "watch:css": "postcss -w src/assets/tailwind.css -o src/assets/build.css"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -52,6 +53,7 @@
     "autoprefixer": "^9.7.6",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
+    "npm-run-all": "^4.1.5",
     "postcss-cli": "^7.1.1",
     "prettier": "2.0.5",
     "tailwindcss": "^1.4.6"
