@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import useInterval from '../libs/useInterval';
+import useInterval from '../../libs/useInterval';
 
 import './NookAlert.css';
 import { CSSTransition } from 'react-transition-group';
 
-import { handleNotificationTest } from '../libs/selectLib';
+import { handleNotificationTest } from '../../libs/selectLib';
 
 const NookAlert = ({ alertType }) => {
   const timer_delay = 12000;

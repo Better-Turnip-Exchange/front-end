@@ -53,7 +53,7 @@
 }
 
 .nook #raccoon {
-  background-image: url(../assets/raccoon.png);
+  background-image: url(./raccoon.png);
   background-size: 10em;
   width: 10em;
   height: 10em;

@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef, Fragment } from 'react';
-import { loadState, saveState } from '../libs/updateStorage';
+import React, { useState, useEffect, Fragment } from 'react';
+import { loadState, saveState } from '../../libs/updateStorage';
+import useInterval from '../../libs/useInterval';
 import axios from 'axios';
-import useInterval from '../libs/useInterval';
+
 import {
   initialState,
   getSelectedKeyWords,
@@ -9,10 +10,10 @@ import {
   renderIslands,
   handleNotification,
   sortIslands,
-} from '../libs/selectLib';
+} from '../../libs/selectLib';
 
-import NookAlert from './NookAlert';
-import Islands from './Islands';
+import NookAlert from '../molecules/NookAlert';
+import Islands from '../molecules/Islands';
 
 navigator.serviceWorker.register('notification-sw.js');
 

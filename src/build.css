@@ -609,6 +609,16 @@ video {
   }
 }
 
+body {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: Arvo, Georgia, serif;
+}
+
 .container{
   width: 100%;
   margin-right: auto;
@@ -697,6 +707,34 @@ video {
   border-radius: 1em;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   padding: 2.5rem;
+}
+
+.island_card {
+  --bg-opacity: 1;
+  background-color: #f8f8f0;
+  background-color: rgba(248, 248, 240, var(--bg-opacity));
+  /* @apply rounded-lg;  */
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border-radius: 1em;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.chat-bubble {
+  --bg-opacity: 1;
+  background-color: #f8f8f0;
+  background-color: rgba(248, 248, 240, var(--bg-opacity));
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-family: "Source Sans Pro", sans-serif;
+  overflow-wrap: break-word;
+  width: 10em;
+}
+
+#nav_title:hover #the {
+  --transform-rotate: 0;
 }
 
 body {
@@ -13757,6 +13795,10 @@ body {
   --transform-rotate: 0;
 }
 
+.rotate-15{
+  --transform-rotate: 15deg;
+}
+
 .rotate-45{
   --transform-rotate: 45deg;
 }
@@ -13785,6 +13827,10 @@ body {
   --transform-rotate: 0;
 }
 
+.hover\:rotate-15:hover{
+  --transform-rotate: 15deg;
+}
+
 .hover\:rotate-45:hover{
   --transform-rotate: 45deg;
 }
@@ -13811,6 +13857,10 @@ body {
 
 .focus\:rotate-0:focus{
   --transform-rotate: 0;
+}
+
+.focus\:rotate-15:focus{
+  --transform-rotate: 15deg;
 }
 
 .focus\:rotate-45:focus{
@@ -28291,6 +28341,10 @@ body {
     --transform-rotate: 0;
   }
 
+  .sm\:rotate-15{
+    --transform-rotate: 15deg;
+  }
+
   .sm\:rotate-45{
     --transform-rotate: 45deg;
   }
@@ -28319,6 +28373,10 @@ body {
     --transform-rotate: 0;
   }
 
+  .sm\:hover\:rotate-15:hover{
+    --transform-rotate: 15deg;
+  }
+
   .sm\:hover\:rotate-45:hover{
     --transform-rotate: 45deg;
   }
@@ -28345,6 +28403,10 @@ body {
 
   .sm\:focus\:rotate-0:focus{
     --transform-rotate: 0;
+  }
+
+  .sm\:focus\:rotate-15:focus{
+    --transform-rotate: 15deg;
   }
 
   .sm\:focus\:rotate-45:focus{
@@ -42826,6 +42888,10 @@ body {
     --transform-rotate: 0;
   }
 
+  .md\:rotate-15{
+    --transform-rotate: 15deg;
+  }
+
   .md\:rotate-45{
     --transform-rotate: 45deg;
   }
@@ -42854,6 +42920,10 @@ body {
     --transform-rotate: 0;
   }
 
+  .md\:hover\:rotate-15:hover{
+    --transform-rotate: 15deg;
+  }
+
   .md\:hover\:rotate-45:hover{
     --transform-rotate: 45deg;
   }
@@ -42880,6 +42950,10 @@ body {
 
   .md\:focus\:rotate-0:focus{
     --transform-rotate: 0;
+  }
+
+  .md\:focus\:rotate-15:focus{
+    --transform-rotate: 15deg;
   }
 
   .md\:focus\:rotate-45:focus{
@@ -57361,6 +57435,10 @@ body {
     --transform-rotate: 0;
   }
 
+  .lg\:rotate-15{
+    --transform-rotate: 15deg;
+  }
+
   .lg\:rotate-45{
     --transform-rotate: 45deg;
   }
@@ -57389,6 +57467,10 @@ body {
     --transform-rotate: 0;
   }
 
+  .lg\:hover\:rotate-15:hover{
+    --transform-rotate: 15deg;
+  }
+
   .lg\:hover\:rotate-45:hover{
     --transform-rotate: 45deg;
   }
@@ -57415,6 +57497,10 @@ body {
 
   .lg\:focus\:rotate-0:focus{
     --transform-rotate: 0;
+  }
+
+  .lg\:focus\:rotate-15:focus{
+    --transform-rotate: 15deg;
   }
 
   .lg\:focus\:rotate-45:focus{
@@ -71896,6 +71982,10 @@ body {
     --transform-rotate: 0;
   }
 
+  .xl\:rotate-15{
+    --transform-rotate: 15deg;
+  }
+
   .xl\:rotate-45{
     --transform-rotate: 45deg;
   }
@@ -71924,6 +72014,10 @@ body {
     --transform-rotate: 0;
   }
 
+  .xl\:hover\:rotate-15:hover{
+    --transform-rotate: 15deg;
+  }
+
   .xl\:hover\:rotate-45:hover{
     --transform-rotate: 45deg;
   }
@@ -71950,6 +72044,10 @@ body {
 
   .xl\:focus\:rotate-0:focus{
     --transform-rotate: 0;
+  }
+
+  .xl\:focus\:rotate-15:focus{
+    --transform-rotate: 15deg;
   }
 
   .xl\:focus\:rotate-45:focus{
