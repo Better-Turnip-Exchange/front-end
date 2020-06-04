@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
-import { formatTime, formatCapacity } from '../../libs/selectLib';
+import { formatTime, formatCapacity, renderRating } from '../../libs/selectLib';
 import { v4 as uuid } from 'uuid';
+
+
 
 const Islands = ({ islands }) => {
   return (
@@ -17,6 +19,9 @@ const Islands = ({ islands }) => {
             >
               {island.name}
             </a>
+            <p class="block font-normal text-md px-2 text-acBrown">
+              {renderRating(island.rating)}
+            </p>
             <p class="block font-normal text-md px-2 text-acBrown">
               {formatTime(island.creationTime)}
             </p>

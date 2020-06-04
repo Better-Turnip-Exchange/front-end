@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import moment from 'moment';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
 export const initialState = {
   keywords: {
     tip: false,
@@ -74,3 +75,17 @@ export const handleNotificationTest = async () => {
     });
   }
 };
+
+export const renderRating = (rating) => {
+  var i;
+  var stars = [];
+  for (i = 0; i < rating; i++) {
+    stars.push(<FontAwesomeIcon icon={faStar} />)
+  }
+  for (i = 0; i < 5 - rating; i++) {
+    console.log(i)
+    stars.push(<FontAwesomeIcon icon={faStar} className='bg-acLight' />)
+  }
+  return stars
+
+} 
