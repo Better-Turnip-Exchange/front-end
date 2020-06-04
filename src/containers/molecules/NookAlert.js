@@ -5,7 +5,7 @@ import useInterval from '../../libs/useInterval';
 import './NookAlert.css';
 import { CSSTransition } from 'react-transition-group';
 
-import { handleNotificationTest } from '../../libs/selectLib';
+import { handleNotification } from '../../libs/selectLib';
 
 const NookAlert = ({ alertType }) => {
   const timer_delay = 12000;
@@ -54,6 +54,16 @@ const NookAlert = ({ alertType }) => {
     }
   };
 
+  const notifyTest = () => {
+    if (handleNotification) {
+      const options = {
+        body: 'Hello',
+        icon: 'http://pngimg.com/uploads/raccoon/raccoon_PNG16974.png',
+      };
+      new Notification('Oh, Looks like notifications are working', options);
+    }
+  };
+
   return (
     <div>
       <CSSTransition in={isOpen} classNames="nook" appear={true} timeout={5000}>
@@ -61,7 +71,12 @@ const NookAlert = ({ alertType }) => {
           <div className="chat-bubble ml-3">
             <h1>{alert_mesage()}</h1>
           </div>
-          <div id="raccoon" onClick={handleNotificationTest}></div>
+          <div
+            id="raccoon"
+            onClick={(e) => {
+              notifyTest();
+            }}
+          ></div>
         </div>
       </CSSTransition>
     </div>

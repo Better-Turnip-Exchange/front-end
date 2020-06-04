@@ -26,6 +26,7 @@ const Select = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [alertType, setAlertType] = useState('DEFUALT');
   const { keywords, price } = state;
+  const [isIslandNotify, setIsIslandNotify] = useState(false);
 
   useEffect(() => {
     saveState(state);
@@ -91,7 +92,7 @@ const Select = () => {
       if (diff.length != 0) {
         console.log('New Islands!');
         setAlertType('NEW_ISLANDS');
-        handleNotification();
+        notifyIsland();
       }
       // Set data
       var sortedIslands = sortIslands(Object.values(openIslands));
@@ -122,6 +123,26 @@ const Select = () => {
       putUser();
       postRun();
       setIsRunning(true);
+    }
+  };
+
+  /* Notification */
+  const notifyIsland = () => {
+    if (isIslandNotify) {
+      console.log('notif already open');
+    } else if (handleNotification) {
+      const options = {
+        body: 'We found a new Island for you, come check it out!',
+        icon: 'http://pngimg.com/uploads/raccoon/raccoon_PNG16969.png',
+        requireInteraction: true,
+      };
+      let notify = new Notification('New Island Found!', options);
+      console.log('new notif', isIslandNotify);
+      notify.onclose((e) => {
+        setIsIslandNotify(false);
+      });
+
+      setIsIslandNotify(true);
     }
   };
 
