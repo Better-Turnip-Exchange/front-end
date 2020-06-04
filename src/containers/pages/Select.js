@@ -2,29 +2,28 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { loadState, saveState } from '../../libs/updateStorage';
 import useInterval from '../../libs/useInterval';
 import axios from 'axios';
+import { v4 as uuid } from 'uuid';
 
 import {
   initialState,
   getSelectedKeyWords,
   formatKeyword,
-  renderIslands,
   handleNotification,
   sortIslands,
 } from '../../libs/selectLib';
 
-import NookAlert from '../molecules/NookAlert';
+import NookAlert, { AlertTypes } from '../molecules/NookAlert';
 import Islands from '../molecules/Islands';
 
 navigator.serviceWorker.register('notification-sw.js');
 
 const Select = () => {
-  const villager_id = 'test';
   const [state, setState] = useState(loadState() || initialState);
   const [openIslands, setOpenIslands] = useState({});
   const [displayIslands, setDisplayIslands] = useState([]);
   const [delay] = useState(7000);
   const [isRunning, setIsRunning] = useState(false);
-  const [alertType, setAlertType] = useState('DEFUALT');
+  const [alertType, setAlertType] = useState(AlertTypes.DEFAULT);
   const { keywords, price } = state;
   const [isIslandNotify, setIsIslandNotify] = useState(false);
 
@@ -32,7 +31,6 @@ const Select = () => {
     saveState(state);
     if (isRunning) {
       putUser();
-      postRun();
     }
   }, [state]);
 
@@ -45,7 +43,7 @@ const Select = () => {
 
   /* Keywords */
   const toggleKeyword = (key, bool = !keywords[key]) => {
-    console.log('Toggling keyword', key, 'to', bool);
+    // console.log('Toggling keyword', key, 'to', bool);
     setState((prevState) => ({
       ...prevState,
       keywords: {
@@ -55,8 +53,17 @@ const Select = () => {
     }));
   };
 
+  const setVillagerId = (villager_id) => {
+    setState({ ...state, villager_id });
+    return villager_id;
+  };
+
   /* Server calls */
   const putUser = async () => {
+    const villager_id = state.villager_id
+      ? state.villager_id
+      : setVillagerId(uuid());
+
     const body = {
       villager_id,
       price_threshold: price,
@@ -67,40 +74,41 @@ const Select = () => {
       const res = await axios.post('/villager/', body);
 
       console.log('putUser Success:', res.data);
+      postRun();
     } catch (error) {
       console.error('putUser Error:', error);
     }
   };
 
   const postRun = async () => {
-    // const config = {
-    //   params: {
-    //     villager_id,
-    //   },
-    // };
     console.log('Post on /Run started');
     try {
       const {
         data: { islands_visited },
-      } = await axios.post(`/run?villager_id=${villager_id}`);
+      } = await axios.post(`/run?villager_id=${state.villager_id}`);
 
-      console.log(islands_visited);
       // Run notifications
-      let diff = Object.keys(openIslands).filter(
-        (island) => !Object.keys(islands_visited).includes(island),
+
+      let diff = Object.keys(islands_visited).filter(
+        (island) => !Object.keys(openIslands).includes(island),
       );
+
+      // console.log('new islands', islands_visited);
+      // console.log('old islands', openIslands);
+      // console.log('diff', diff);
+
       if (diff.length != 0) {
         console.log('New Islands!');
-        setAlertType('NEW_ISLANDS');
+        setAlertType(AlertTypes.NEW_ISLANDS);
         notifyIsland();
       }
       // Set data
-      var sortedIslands = sortIslands(Object.values(openIslands));
+      let sortedIslands = sortIslands(Object.values(openIslands));
       setOpenIslands(islands_visited);
       setDisplayIslands(sortedIslands);
     } catch (error) {
-      setAlertType('ERROR');
-      console.error('POST /run error:', error.msg);
+      console.error('POST /run error:', error);
+      setAlertType(AlertTypes.ERROR);
       setIsRunning(false);
     }
   };
@@ -115,16 +123,16 @@ const Select = () => {
     toggleKeyword(e.currentTarget.id);
   };
 
-  const onRun = () => {
+  const onRun = async () => {
     if (isRunning) {
-      console.log('Stopping run');
       setIsRunning(false);
     } else {
       putUser();
-      postRun();
       setIsRunning(true);
     }
   };
+
+  const run = () => {};
 
   /* Notification */
   const notifyIsland = () => {
@@ -138,9 +146,6 @@ const Select = () => {
       };
       let notify = new Notification('New Island Found!', options);
       console.log('new notif', isIslandNotify);
-      notify.onclose((e) => {
-        setIsIslandNotify(false);
-      });
 
       setIsIslandNotify(true);
     }
@@ -154,7 +159,7 @@ const Select = () => {
           keywords[keyword]
             ? 'bg-orange-200 hover:shadow-lg'
             : 'bg-gray-100 hover:bg-gray-200 hover:shadow-lg'
-          }`}
+        }`}
         id={keyword}
         key={i}
         onClick={onToggleKeyword}

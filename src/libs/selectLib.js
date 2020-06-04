@@ -2,6 +2,7 @@ import { useState } from 'react';
 import moment from 'moment';
 
 export const initialState = {
+  villager_id: null,
   keywords: {
     tip: false,
     gold: false,

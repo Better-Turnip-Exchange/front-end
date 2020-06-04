@@ -14,7 +14,6 @@ const NookAlert = ({ alertType }) => {
   const [resetFlag, setResetFlag] = useState(false);
 
   useEffect(() => {
-    console.log('useeffect with alert', alertType);
     if (isOpen) {
       setResetFlag(true);
     }
@@ -26,14 +25,12 @@ const NookAlert = ({ alertType }) => {
     if (resetFlag) {
       setResetFlag(false);
     } else {
-      console.log('closing alert');
       setIsOpen(false);
       setTimer(null);
     }
   }, timer);
 
   const resetTimer = () => {
-    console.log('resetting timer');
     setTimer(null);
     setTimer(timer_delay);
   };
@@ -88,3 +85,10 @@ NookAlert.propTypes = {
 };
 
 export default NookAlert;
+
+export const AlertTypes = {
+  STARTING_RUN: 'STARTING_RUN',
+  NEW_ISLANDS: 'NEW_ISLANDS',
+  ERROR: 'ERROR',
+  DEFAULT: 'DEFAULT',
+};
