@@ -155,10 +155,10 @@ const Select = () => {
   const renderKeywordList = (keywords) => {
     return Object.keys(keywords).map((keyword, i) => (
       <button
-        className={`spin keyword-label rounded py-2 px-2 mr-2 shadow-md w-20 ${
+        className={`spin keyword-label rounded py-2 px-2 mr-2  w-20  ${
           keywords[keyword]
-            ? 'bg-orange-200 hover:shadow-lg'
-            : 'bg-gray-100 hover:bg-gray-200 hover:shadow-lg'
+            ? 'bg-acGreen text-acLight hover:shadow-lg'
+            : 'shadow-lg hover:shadow-none hover:bg-gray-200 '
         }`}
         id={keyword}
         key={i}

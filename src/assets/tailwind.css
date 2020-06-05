@@ -4,6 +4,7 @@
 
 body {
   @apply font-body;
+  @apply text-acBrown;
 }
 
 h1,
@@ -28,22 +29,23 @@ h3 {
   @apply px-8;
   @apply font-title;
   display: inline-block;
+  @apply shadow-lg;
 }
 
 .btn:hover {
-  @apply shadow-lg;
-  color: inherit;
+  @apply shadow-none;
 }
 
 .btn-blue {
   @apply bg-acBlue;
   @apply text-acLight;
+  @apply border;
+  @apply border-acBlue;
 }
 
 .btn-blue:hover {
-  @apply text-acLight;
-  outline: thick;
-  outline-color: theme('colors.acYellow');
+  @apply text-acBlue;
+  @apply bg-acLight;
 }
 
 .card {
