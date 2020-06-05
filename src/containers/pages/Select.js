@@ -103,7 +103,11 @@ const Select = () => {
         notifyIsland();
       }
       // Set data
-      let sortedIslands = sortIslands(Object.values(openIslands));
+      let sortedIslands = sortIslands(
+        Object.keys(openIslands).map((id) =>
+          Object.assign(openIslands[id], { id: id }),
+        ),
+      );
       setOpenIslands(islands_visited);
       setDisplayIslands(sortedIslands);
     } catch (error) {

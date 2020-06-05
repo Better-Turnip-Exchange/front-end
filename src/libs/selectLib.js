@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import moment from 'moment';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 export const initialState = {
   villager_id: null,
   keywords: {
@@ -63,16 +63,21 @@ export const handleNotification = () => {
   return false;
 };
 
-export const renderRating = (rating) => {
+export const renderRating = (rating = 0, id) => {
   var i;
   var stars = [];
   for (i = 0; i < rating; i++) {
-    stars.push(<FontAwesomeIcon icon={faStar} />)
+    stars.push(<FontAwesomeIcon icon={faStar} key={`${i}_${id}`} />);
   }
   for (i = 0; i < 5 - rating; i++) {
-    console.log(i)
-    stars.push(<FontAwesomeIcon icon={faStar} className='bg-acLight' />)
+    console.log(i);
+    stars.push(
+      <FontAwesomeIcon
+        icon={faStar}
+        key={`b${i}_${id}`}
+        className="bg-acLight"
+      />,
+    );
   }
-  return stars
-
-} 
+  return stars;
+};

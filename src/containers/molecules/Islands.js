@@ -2,23 +2,21 @@ import React, { Fragment } from 'react';
 import { formatTime, formatCapacity, renderRating } from '../../libs/selectLib';
 import { v4 as uuid } from 'uuid';
 
-
-
 const Islands = ({ islands }) => {
   return (
     <Fragment>
       {islands.map((island) => (
-        <div class="w-full  rounded-lg bg-acLight shadow-md" key={uuid()}>
+        <div class="w-full  rounded-lg bg-acLight shadow-md" key={island.id}>
           <div id="island-main-info" class="shadow relative block px-4 py-6">
             <a
               href={island.link}
               target="_blank"
-              class="block font-semibold mb-2 px-2 text-3xl overflow-x-scroll font-title text-acBrown"
+              class="block font-semibold mb-2 px-2 text-3xl overflow-x-scroll font-title text-acBrown hover:underline"
             >
               {island.name}
             </a>
             <p class="block font-normal text-md px-2 text-acBrown">
-              {renderRating(island.rating)}
+              {renderRating(island.rating, island.id)}
             </p>
             <p class="block font-normal text-md px-2 text-acBrown">
               {formatTime(island.creationTime)}
