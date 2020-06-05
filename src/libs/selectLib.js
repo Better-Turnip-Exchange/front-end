@@ -67,17 +67,12 @@ export const renderRating = (rating = 0, id) => {
   var i;
   var stars = [];
   for (i = 0; i < rating; i++) {
-    stars.push(<FontAwesomeIcon icon={faStar} key={`${i}_${id}`} />);
+    stars.push(<FontAwesomeIcon icon={faStar} className="text-acBrown" />);
   }
   for (i = 0; i < 5 - rating; i++) {
     console.log(i);
-    stars.push(
-      <FontAwesomeIcon
-        icon={faStar}
-        key={`b${i}_${id}`}
-        className="bg-acLight"
-      />,
-    );
+    stars.push(<FontAwesomeIcon icon={faStar} className="text-orange-200" />);
   }
+  console.log(stars);
   return stars;
 };
