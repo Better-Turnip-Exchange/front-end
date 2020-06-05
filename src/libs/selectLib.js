@@ -67,12 +67,13 @@ export const renderRating = (rating) => {
   var i;
   var stars = [];
   for (i = 0; i < rating; i++) {
-    stars.push(<FontAwesomeIcon icon={faStar} />)
+    stars.push(<FontAwesomeIcon icon={faStar} className='text-acBrown' />)
   }
   for (i = 0; i < 5 - rating; i++) {
     console.log(i)
-    stars.push(<FontAwesomeIcon icon={faStar} className='bg-acLight' />)
+    stars.push(<FontAwesomeIcon icon={faStar} className='text-orange-200' />)
   }
+  console.log(stars)
   return stars
 
 } 
