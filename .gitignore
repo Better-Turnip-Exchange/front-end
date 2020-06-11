@@ -22,7 +22,7 @@
 .env.production.local
 package-lock.json
 build.css
-.env
+
 
 
 

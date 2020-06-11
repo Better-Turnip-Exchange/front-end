@@ -1,8 +1,10 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { loadState, saveState } from '../../libs/updateStorage';
 import useInterval from '../../libs/useInterval';
+import config from '../../config';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
+
 
 import {
   initialState,
@@ -71,11 +73,12 @@ const Select = () => {
       islands_visited: {},
     };
     try {
-      const res = await axios.post('/villager/', body);
+      const res = await axios.post(`${process.env.REACT_APP_TURNIP_API}/villager/`, body);
 
       console.log('putUser Success:', res.data);
       postRun();
     } catch (error) {
+      console.log(process.env)
       console.error('putUser Error:', error);
     }
   };
@@ -85,7 +88,7 @@ const Select = () => {
     try {
       const {
         data: { islands_visited },
-      } = await axios.post(`/run?villager_id=${state.villager_id}`);
+      } = await axios.post(`${process.env.REACT_APP_TURNIP_API}/run?villager_id=${state.villager_id}`);
 
       // Run notifications
 
@@ -107,6 +110,7 @@ const Select = () => {
       setOpenIslands(islands_visited);
       setDisplayIslands(sortedIslands);
     } catch (error) {
+      console.log(error)
       console.error('POST /run error:', error);
       setAlertType(AlertTypes.ERROR);
       setIsRunning(false);
@@ -132,7 +136,7 @@ const Select = () => {
     }
   };
 
-  const run = () => {};
+  const run = () => { };
 
   /* Notification */
   const notifyIsland = () => {
@@ -159,7 +163,7 @@ const Select = () => {
           keywords[keyword]
             ? 'bg-orange-200 hover:shadow-lg'
             : 'bg-gray-100 hover:bg-gray-200 hover:shadow-lg'
-        }`}
+          }`}
         id={keyword}
         key={i}
         onClick={onToggleKeyword}

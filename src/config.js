@@ -1,6 +1,7 @@
 const dev = {
     api: {
-        url: "http://localhost:8080"
+        url: "https://bte-rest-api-x63xqdeyyq-uw.a.run.app/"
+
     }
 }
 const prod = {
