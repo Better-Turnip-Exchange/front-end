@@ -56,6 +56,7 @@ const Select = () => {
   };
 
   const setVillagerId = (villager_id) => {
+    console.log("creating new villager id")
     setState({ ...state, villager_id });
     return villager_id;
   };
@@ -86,14 +87,13 @@ const Select = () => {
 
   const postRun = async () => {
     console.log('Post on /Run started');
+    console.log(`Villager ID: ${state.villager_id}`)
 
     try {
       const {
         data: { islands_visited },
       } = await axios.post(`https://bte-rest-api-x63xqdeyyq-uw.a.run.app/run?villager_id=${state.villager_id}`);
-
       // Run notifications
-
       let diff = Object.keys(islands_visited).filter(
         (island) => !Object.keys(openIslands).includes(island),
       );
@@ -109,7 +109,6 @@ const Select = () => {
       setDisplayIslands(sortedIslands);
     } catch (error) {
       console.log(error)
-      console.log(error.status)
       console.error('POST /run error:', error);
       setAlertType(AlertTypes.ERROR);
       setIsRunning(false);
