@@ -22,7 +22,6 @@ export const getSelectedKeyWords = (keywords) => {
       selected.push(word);
     }
   }
-  console.log(selected);
   return selected;
 };
 
@@ -70,10 +69,7 @@ export const renderRating = (rating) => {
     stars.push(<FontAwesomeIcon icon={faStar} className='text-acBrown' />)
   }
   for (i = 0; i < 5 - rating; i++) {
-    console.log(i)
     stars.push(<FontAwesomeIcon icon={faStar} className='text-orange-200' />)
   }
-  console.log(stars)
   return stars
-
 } 

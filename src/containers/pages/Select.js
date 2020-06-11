@@ -72,33 +72,31 @@ const Select = () => {
       keywords: getSelectedKeyWords(keywords),
       islands_visited: {},
     };
-    try {
-      const res = await axios.post(`${process.env.REACT_APP_TURNIP_API}/villager/`, body);
+    const headers = {
+      'Content-Type': 'text/plain',
 
-      console.log('putUser Success:', res.data);
+    };
+    try {
+      await axios.post(`https://bte-rest-api-x63xqdeyyq-uw.a.run.app/villager/`, JSON.stringify(body), { headers: headers });
       postRun();
     } catch (error) {
-      console.log(process.env)
       console.error('putUser Error:', error);
     }
   };
 
   const postRun = async () => {
     console.log('Post on /Run started');
+
     try {
       const {
         data: { islands_visited },
-      } = await axios.post(`${process.env.REACT_APP_TURNIP_API}/run?villager_id=${state.villager_id}`);
+      } = await axios.post(`https://bte-rest-api-x63xqdeyyq-uw.a.run.app/run?villager_id=${state.villager_id}`);
 
       // Run notifications
 
       let diff = Object.keys(islands_visited).filter(
         (island) => !Object.keys(openIslands).includes(island),
       );
-
-      // console.log('new islands', islands_visited);
-      // console.log('old islands', openIslands);
-      // console.log('diff', diff);
 
       if (diff.length != 0) {
         console.log('New Islands!');
@@ -111,6 +109,7 @@ const Select = () => {
       setDisplayIslands(sortedIslands);
     } catch (error) {
       console.log(error)
+      console.log(error.status)
       console.error('POST /run error:', error);
       setAlertType(AlertTypes.ERROR);
       setIsRunning(false);
