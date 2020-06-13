@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { loadState, saveState } from '../../libs/updateStorage';
 import useInterval from '../../libs/useInterval';
-import config from '../../config';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 
