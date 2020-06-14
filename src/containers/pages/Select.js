@@ -80,7 +80,7 @@ const Select = () => {
 
     };
     try {
-      await axios.post(`https://localhost:8080/villager/`, JSON.stringify(body), { headers: headers });
+      await axios.post(`https://bte-rest-api-x63xqdeyyq-uw.a.run.app/villager/`, JSON.stringify(body), { headers: headers });
       postRun();
     } catch (error) {
       console.error('putUser Error:', error);
@@ -98,7 +98,7 @@ const Select = () => {
     try {
       const {
         data: { islands_visited },
-      } = await axios.post(`https://localhost:8080/run?villager_id=${state.villager_id}`, {}, headers);
+      } = await axios.post(`https://bte-rest-api-x63xqdeyyq-uw.a.run.app/run?villager_id=${state.villager_id}`, {}, headers);
       // Run notifications
       let diff = Object.keys(islands_visited).filter(
         (island) => !Object.keys(openIslands).includes(island),
@@ -113,7 +113,6 @@ const Select = () => {
       let sortedIslands = sortIslands(Object.values(openIslands));
       setOpenIslands(islands_visited);
       setDisplayIslands(sortedIslands);
-      console.log(islands_visited)
     } catch (error) {
       console.log(error)
       console.error('POST /run error:', error);
